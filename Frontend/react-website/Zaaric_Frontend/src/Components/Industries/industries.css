@@ -1,217 +1,455 @@
-/* =========================== INDUSTRIES SECTION =========================== */
-.industries {
-    padding: 100px 8%;
-    background: linear-gradient(180deg, #0b0b0b 0%, #111 100%);
-    position: relative;
-    overflow: hidden;
-    z-index: 3;
-    min-height: 1000px;
-  }
+/* ========================== INDUSTRIES (Zaaric Premium) ========================== */
+/* Highly polished, enterprise-grade styling inspired by Stripe, i2c, Marshub */
+
+/* Root section */
+.industries-section {
+  background: linear-gradient(180deg, #07070a 0%, #0b0b0f 100%);
+  color: #eaf8ff;
+  margin-bottom: 20rem;
+  margin-top: 10rem;
+  padding: clamp(48px, 8vw, 120px) 6%;
+  position: relative;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+               Roboto, "Helvetica Neue", Arial;
+}
+
+/* Subtle ambient glows for depth */
+.industries-section::before {
+  content: "";
+  position: absolute;
+  inset: -20% -10% -10% -10%;
+  background:
+    radial-gradient(800px circle at 10% 20%, rgba(0,198,255,0.06), transparent 18%),
+    radial-gradient(900px circle at 90% 80%, rgba(138,43,226,0.04), transparent 14%);
+  z-index: 0;
+  pointer-events: none;
+  transform-origin: center;
+  animation: eliteAmbient 20s ease-in-out infinite alternate;
+  filter: blur(1px);
+}
+@keyframes eliteAmbient {
+  0% { transform: scale(1) rotate(0deg); opacity: 0.6; }
+  50% { transform: scale(1.05) rotate(1deg); opacity: 0.8; }
+  100% { transform: scale(1.1) rotate(0deg); opacity: 0.7; }
+}
+
+/* Elite Header Styling */
+.industries-header { 
+  text-align: center; 
+  margin-bottom: clamp(32px, 5vw, 72px); 
+  position: relative; 
+  z-index: 2; 
+}
+.section-title {
+  font-size: clamp(28px, 4.6vw, 44px);
+  font-weight: 800;
+  line-height: 1.02;
+  margin: 0;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #00c6ff , #0072ff );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 40px rgba(0, 198, 255, 0.3);
+  position: relative;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  border-radius: 2px;
+  box-shadow: 0 0 20px rgba(0, 198, 255, 0.5);
+}
+.section-subtitle {
+  margin-top: 20px;
+  color: rgba(248, 250, 252, 0.85);
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+/* Grid layout */
+.industries-grid {
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2.6vw, 28px);
+  align-items: start;
+  margin-top: clamp(12px, 2.2vw, 24px);
+}
+
+/* Elite Corporate Card Design */
+.industry-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: clamp(24px, 3vw, 36px);
+  border-radius: 20px;
+  min-height: 280px;
+  background: linear-gradient(145deg, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    rgba(248, 250, 252, 0.98) 50%, 
+    rgba(255, 255, 255, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.15),
+    0 8px 25px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: all 500ms cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+  will-change: transform, box-shadow, background;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  /* scroll reveal starting state */
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+}
+
+/* Elite gradient border effect */
+.industry-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, 
+    rgba(0, 198, 255, 0.3) 0%, 
+    rgba(0, 114, 255, 0.2) 25%, 
+    rgba(138, 43, 226, 0.15) 50%, 
+    rgba(0, 198, 255, 0.2) 75%, 
+    rgba(0, 114, 255, 0.3) 100%);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  -webkit-mask-composite: xor;
+  opacity: 0;
+  transition: opacity 500ms ease;
+  z-index: -1;
+}
+
+.industry-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  background: linear-gradient(135deg, 
+    rgba(0, 198, 255, 0.05) 0%, 
+    rgba(0, 114, 255, 0.03) 50%, 
+    rgba(138, 43, 226, 0.02) 100%);
+  opacity: 0;
+  transition: opacity 500ms ease;
+  z-index: -1;
+}
+
+/* Elite Industry Header */
+.industry-header {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* Elite Icon Styling */
+.industry-header .industry-icon,
+.industry-icon {
+  width: clamp(52px, 6vw, 72px);
+  height: clamp(52px, 6vw, 72px);
+  min-width: clamp(52px, 6vw, 52px);
+  min-height: clamp(52px, 6vw, 52px);
+  display: inline-grid;
+  place-items: center;
+  border-radius: 16px;
+  background: linear-gradient(135deg, 
+    rgba(0, 198, 255, 0.1) 0%, 
+    rgba(0, 114, 255, 0.08) 50%, 
+    rgba(138, 43, 226, 0.06) 100%);
+  color: #0072ff;
+  transition: all 400ms cubic-bezier(0.23, 1, 0.32, 1);
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 198, 255, 0.2);
+  box-shadow: 
+    0 8px 25px rgba(0, 198, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Elite Title Styling */
+.industry-header h3 {
+  margin: 0;
+  font-size: clamp(18px, 2vw, 24px);
+  color: #1a1a1a;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+
+/* Elite Description Styling */
+.industry-desc {
+  margin: 0;
+  color: rgba(26, 26, 26, 0.85);
+  font-size: clamp(14px, 1.6vw, 16px);
+  line-height: 1.7;
+  max-width: 100%;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* Elite Highlights - Premium Micro-badges */
+.industry-highlights {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+.industry-highlights li {
+  background: linear-gradient(135deg, 
+    rgba(0, 198, 255, 0.12) 0%, 
+    rgba(0, 114, 255, 0.08) 50%, 
+    rgba(138, 43, 226, 0.06) 100%);
+  color: #0072ff;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid rgba(0, 198, 255, 0.2);
+  box-shadow: 
+    0 4px 15px rgba(0, 198, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  letter-spacing: 0.01em;
+}
+
+/* Elite Hover Effects */
+.industry-card:hover {
+  transform: translateY(-16px) scale(1.03);
+  background: linear-gradient(145deg, 
+    rgba(255, 255, 255, 0.98) 0%, 
+    rgba(248, 250, 252, 1) 50%, 
+    rgba(255, 255, 255, 0.98) 100%);
+  box-shadow: 
+    0 32px 80px rgba(0, 0, 0, 0.2),
+    0 16px 40px rgba(0, 0, 0, 0.15),
+    0 8px 20px rgba(0, 198, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.industry-card:hover::before {
+  opacity: 1;
+}
+
+.industry-card:hover::after {
+  opacity: 1;
+}
+
+.industry-card:hover .industry-icon {
+  transform: scale(1.1) rotate(5deg);
+  background: linear-gradient(135deg, 
+    rgba(0, 198, 255, 0.2) 0%, 
+    rgba(0, 114, 255, 0.15) 50%, 
+    rgba(138, 43, 226, 0.1) 100%);
+  box-shadow: 
+    0 12px 35px rgba(0, 198, 255, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  color: #0072ff;
+}
+
+.industry-card:hover .industry-header h3 {
+  color: #0072ff;
+  text-shadow: 0 0 20px rgba(0, 198, 255, 0.3);
+}
+
+.industry-card:hover .industry-highlights li { 
+  transform: translateY(-3px) scale(1.05);
+  background: linear-gradient(135deg, 
+    rgba(0, 198, 255, 0.2) 0%, 
+    rgba(0, 114, 255, 0.15) 50%, 
+    rgba(138, 43, 226, 0.1) 100%);
+  box-shadow: 
+    0 8px 25px rgba(0, 198, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  color: #0072ff;
+}
+
+/* Elite Focus States */
+.industry-card:focus-within, .industry-card:focus {
+  outline: 3px solid rgba(0, 198, 255, 0.3);
+  outline-offset: 8px;
+  box-shadow: 
+    0 0 0 1px rgba(0, 198, 255, 0.2),
+    0 20px 60px rgba(0, 0, 0, 0.15),
+    0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Reveal - staggered */
+.industry-card.visible { opacity: 1; transform: translateY(0) scale(1); }
+.industry-card:nth-child(1).visible { transition-delay: 120ms; }
+.industry-card:nth-child(2).visible { transition-delay: 260ms; }
+.industry-card:nth-child(3).visible { transition-delay: 400ms; }
+.industry-card:nth-child(4).visible { transition-delay: 540ms; }
+.industry-card:nth-child(5).visible { transition-delay: 680ms; }
+.industry-card:nth-child(6).visible { transition-delay: 820ms; }
+
+/* Elite Dots Navigation */
+.industries-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: clamp(24px, 4vw, 40px);
+  z-index: 2;
+}
+.dot {
+  width: 10px; 
+  height: 10px; 
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    inset 0 -2px 8px rgba(0, 0, 0, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.dot:hover {
+  transform: scale(1.2);
+  background: rgba(0, 198, 255, 0.3);
+  box-shadow: 
+    0 4px 12px rgba(0, 198, 255, 0.2),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.2);
+}
+.dot.active { 
+  background: linear-gradient(135deg, #00c6ff, #0072ff); 
+  transform: scale(1.4); 
+  box-shadow: 
+    0 8px 25px rgba(0, 198, 255, 0.3),
+    0 4px 12px rgba(0, 114, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(0, 198, 255, 0.4);
+}
+
+/* Hide dots on wide desktop if grid is fully visible */
+@media (min-width: 1100px) {
+  .industries-dots { display: none; visibility: hidden; }
+  .industry-card:hover{
+    transition: all 0.3s ease;
+    background: linear-gradient(
+      120deg,
+      rgb(245, 245, 245),
+      rgba(255, 255, 255, 0.95)
+    );
+    box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.07),
+                inset 0 -6px 12px rgba(0, 0, 0, 0.05),
+                0 6px 18px rgba(0, 0, 0, 0.12);
+
+
+    .industry-header h3{
+      color: rgb(0, 0, 0);
   
-  /* ✨ Animated background glows */
-  .industries::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 25% 30%, rgba(0, 198, 255, 0.06), transparent 70%),
-                radial-gradient(circle at 80% 70%, rgba(138, 43, 226, 0.06), transparent 70%);
-    animation: industriesGlow 14s ease-in-out infinite alternate;
-    pointer-events: none;
-    z-index: 0;
-  }
-  
-  @keyframes industriesGlow {
-    0% {
-      transform: scale(1);
-      opacity: 0.6;
     }
-    100% {
-      transform: scale(1.15);
-      opacity: 0.85;
+    .industry-desc{
+      color: rgb(0, 0, 0);
+    }
+    .industry-highlights li{
+      color: rgb(0, 0, 0);
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.901), rgba(255, 255, 255, 0.852));
+  
+  
     }
   }
-  
-  /* Section Header */
-  .industries-header {
-    text-align: center;
-    margin-bottom: 70px;
-    margin-top: 10rem;
-    position: relative;
-    z-index: 2;
-  }
-  
-  .industries .section-title {
-    font-size: 2.8rem;
-    font-weight: 700;
-    background: linear-gradient(90deg, #00c6ff, #0072ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .industries .section-subtitle {
-    opacity: 0.8;
-    font-size: 1.1rem;
-    margin-top: 12px;
-    color: #cfcfcf;
-  }
-  
-  /* =========================== GRID LAYOUT =========================== */
   .industries-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    position: relative;
-    z-index: 2;
+    grid-template-rows: auto auto auto;
+    overflow-y: hidden;
   }
-  
-  /* =========================== INDUSTRY CARD =========================== */
-  .industry-card {
-    position: relative;
-    background: linear-gradient(145deg, #141414, #1c1c1c);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 2rem;
-    overflow: hidden;
-    backdrop-filter: blur(12px);
-    cursor: pointer;
-  
-    /* Initial state (scroll reveal) */
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-    transition: all 0.8s cubic-bezier(0.25, 1, 0.3, 1);
+  .industry-card:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    min-height: 500px;
   }
-  
-  /* ✨ Unique gradient border animation */
-  .industry-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 2px;
-    background: linear-gradient(135deg, #00c6ff, #8a2be2, #0072ff);
-    background-size: 250% 250%;
-    animation: borderFlow 8s linear infinite;
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    opacity: 0.6;
+  .industry-card:nth-child(1) .industry-highlights {
+    margin-top: 12rem;
   }
-  
-  @keyframes borderFlow {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+
+
+
+  .industry-card:nth-child(2) {
+    grid-column: 2 / 4;
+    grid-row: 1;
   }
-  
-  /* ✨ Hover effect */
-  .industry-card:hover {
-    transform: translateY(-12px) scale(1.03);
-    box-shadow: 0 20px 40px rgba(0, 198, 255, 0.15),
-                0 0 30px rgba(138, 43, 226, 0.15);
+  .industry-card:nth-child(3) {
+    grid-column: 2;
+    grid-row: 2;
   }
-  
-  /* Card Content */
-  .industry-content h4 {
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin-bottom: 14px;
-    color: #fff;
+  .industry-card:nth-child(4) {
+    grid-column: 3;
+    grid-row: 2;
   }
-  
-  .industry-content p {
-    font-size: 0.95rem;
-    color: #bdbdbd;
-    line-height: 1.55;
-    margin-bottom: 14px;
+  .industry-card:nth-child(5) {
+    grid-column: 1 / 3;
+    grid-row: 3;
   }
-  
-  .industry-content .tag {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 50px;
-    background: linear-gradient(90deg, #00c6ff, #0072ff);
-    color: #fff;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.4px;
-    box-shadow: 0 0 12px rgba(0, 198, 255, 0.25);
-    transform: scale(0.95);
-    transition: transform 0.3s ease;
+  .industry-card:nth-child(6) {
+    grid-column: 3;
+    grid-row: 3;
   }
-  
-  .industry-card:hover .tag {
-    transform: scale(1.05);
-  }
-  
-  /* =========================== SCROLL REVEAL (STAGGERED) =========================== */
-  .industry-card.visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  
-  .industry-card:nth-child(1).visible { transition-delay: 0.2s; }
-  .industry-card:nth-child(2).visible { transition-delay: 0.35s; }
-  .industry-card:nth-child(3).visible { transition-delay: 0.5s; }
-  .industry-card:nth-child(4).visible { transition-delay: 0.65s; }
-  .industry-card:nth-child(5).visible { transition-delay: 0.8s; }
-  .industry-card:nth-child(6).visible { transition-delay: 0.95s; }
-  
-  /* =========================== DOTS NAVIGATION =========================== */
-  .industries-dots {
+}
+
+/* ------------------ RESPONSIVE BEHAVIOR ------------------ */
+/* Medium / tablet: horizontal scroll carousel for touch */
+@media (max-width: 1024px) {
+  .industries-grid {
     display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 14px;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding: 24px;
+  }
+  .industries-grid::-webkit-scrollbar { display: none; }
+  .industry-card {
+    scroll-snap-align: center;
+    flex: 0 0 min(86%, 720px);
+    min-width: min(86%, 720px);
+    max-width: min(86%, 720px);
+    margin: 0 6px;
+    overflow-y: hidden;
+  }
+  .industry-highlights{
+    margin-top: 2rem;
+    align-items: center;
     justify-content: center;
-    gap: 8px;
-    margin-top: 30px;
-    z-index: 2;
-    position: relative;
   }
-  
-  .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transition: background 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .dot.active {
-    background: #00c6ff;
-    transform: scale(1.2);
-  }
-  
-  /* =========================== RESPONSIVE =========================== */
-  @media screen and (max-width: 1024px) {
-    .industries-grid {
-      display: flex;
-      flex-direction: row;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      gap: 16px;
-      padding-bottom: 20px;
-    }
-  
-    .industry-card {
-      scroll-snap-align: center;
-      min-width: 80vw;
-      max-width: 80vw;
-    }
-  
-    .industries-grid::-webkit-scrollbar {
-      display: none;
-    }
-  }
-  
-  @media screen and (max-width: 640px) {
-    .industries-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-  
+}
+
+/* Small screens: single column stacked tidy layout */
+@media (max-width: 640px) {
+  .industries-section { padding: clamp(28px, 6vw, 48px) 5%; margin-top: 15rem; margin-bottom: 15rem; }
+  .industries-grid { grid-template-columns: 1fr; gap: 14px; }
+  .industry-card { padding: 14px; border-radius: 12px; min-height: 280px; margin-top: 5rem; }
+  .industry-header .industry-icon { width: 44px; height: 44px; }
+  .industry-header h3 { font-size: 16px; }
+  .industry-desc { font-size: 14px; }
+  .industry-highlights li { font-size: 11px; padding: 6px 8px; }
+  .industries-dots { margin-top: 18px; }
+}
+
+/* Tiny accessibility focus for dots */
+.dot:focus { outline: 3px solid rgba(0,198,255,0.12); outline-offset: 6px; }
+
+/* End - Zaaric Enterprises Industries CSS */

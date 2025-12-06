@@ -1,21 +1,51 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { Suspense, lazy, useState, useEffect, useRef } from "react";
 import "./home.css";
-import logo from '../../assets/zaaric_logo.png';
-import heroVideo from '../../assets/hero_bgVideo.mp4';
-import ZaaricAnimation from "../../Components/ZaaricAnimation/zaaricAnimation";
-import TestimonialSection from "../../Components/Testimonials/testimonials";
-import Contact from "../../Components/Contact/contact";
-import Portfolio from "../../Components/Portfolio/portfolio";
-import About from '../../Components/About/about.jsx';
-import Industries from '../../Components/Industries/industries.jsx'
-import ClientOnboarding from '../../Components/ClientOnboarding/ClientOnboarding.jsx'
-import GearSetupAnimation from '../../Components/GearSetup/gearSetupAnimation.jsx'
-import robotImage from '/Assets/hero_robot3.png'
-import aiIdeaImage from '/Assets/AI_idea.png'
-import marketAnalysisImage from '/Assets/tech_market_analytics.png'
-import marketAnalysis2Image from '/Assets/point4.png'
-import robotWorkingImage from '/Assets/robot_working.png'
-import ZaaricScrollGears from "../../Components/GearSetup/gearSetupAnimation.jsx";
+import logo from "../../assets/zaaric_logo.png";
+import heroVideo from "../../assets/hero_bgVideo.mp4";
+
+// ✅ Lazy load components
+const ZaaricAnimation = lazy(() =>
+  import("../../Components/ZaaricAnimation/zaaricAnimation")
+);
+const TestimonialSection = lazy(() =>
+  import("../../Components/Testimonials/testimonials")
+);
+const Contact = lazy(() => import("../../Components/Contact/contact"));
+const Portfolio = lazy(() => import("../../Components/Portfolio/portfolio"));
+const About = lazy(() => import("../../Components/About/about.jsx"));
+const Industries = lazy(() =>
+  import("../../Components/Industries/industries.jsx")
+);
+const ClientOnboarding = lazy(() =>
+  import("../../Components/ClientOnboarding/ClientOnboarding.jsx")
+);
+const GearSetupAnimation = lazy(() =>
+  import("../../Components/GearSetup/gearSetupAnimation.jsx")
+);
+const ZaaricScrollGears = lazy(() =>
+  import("../../Components/GearSetup/gearSetupAnimation.jsx")
+);
+const AIStats = lazy(() =>
+  import("../../Components/AiStats/aiStats.jsx")
+);
+
+const RevolutionaryHero = lazy(() =>
+  import("../../Components/hero/RevolutionaryHero.jsx")
+);
+const EnterpriseIndustries = lazy(() =>
+  import("../../Components/Industries/EnterpriseIndustries.jsx")
+);
+
+const Services = lazy(() => import("../../Components/Services/services.jsx"));
+const TrustIndicators = lazy(() => import("../../Components/TrustIndicators/TrustIndicators.jsx"));
+const AICapabilities = lazy(() => import("../../Components/AICapabilities/AICapabilities.jsx"));
+
+// ✅ Images
+import robotImage from "/Assets/hero_robot3.webp";
+import aiIdeaImage from "/Assets/AI_idea.png";
+import marketAnalysisImage from "/Assets/tech_market_analytics.png";
+import marketAnalysis2Image from "/Assets/point4.webp";
+import robotWorkingImage from "/Assets/robot_working.png";
 
 const Home = () => {
   const contactRef = useRef(null);
@@ -34,6 +64,8 @@ const Home = () => {
   const heroRef = useRef(null);
   const connectorLineRef = useRef(null);
   const timelineProgressRef = useRef(null);
+  const servicesGridRef = useRef(null);
+
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
 
@@ -62,13 +94,13 @@ const Home = () => {
   const handleMobileDotClick = (index) => {
     const container = document.querySelector('.mobile-images-container');
     if (!container) return;
-    
+
     const items = container.querySelectorAll('.mobile-image-item');
     const targetItem = items[index];
     if (targetItem) {
       targetItem.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
     }
-    
+
     // Update active dot
     const dots = document.querySelectorAll('.mobile-dot');
     dots.forEach((dot, i) => {
@@ -78,7 +110,7 @@ const Home = () => {
 
   const scrollToSection = (ref) => ref.current?.scrollIntoView({ behavior: "smooth" });
 
-    /* ################################################################################################ */
+  /* ################################################################################################ */
   /* ################# Control for the Dynamic Timeline in Our Leadership Section  ################## */
   /* ############################################################################################### */
   useEffect(() => {
@@ -87,28 +119,28 @@ const Home = () => {
       const progress = timelineProgressRef.current;
       const glow = timelineGlowRef.current;
       const sleekLine = timelineSleekLineRef.current;
-      
+
       if (!section || !progress) return;
 
       const rect = section.getBoundingClientRect();
       const sectionTop = rect.top;
       const sectionHeight = rect.height;
       const windowHeight = window.innerHeight;
-      
+
       // Calculate scroll progress within the section
       const totalScrollDistance = sectionHeight + windowHeight;
       const scrolled = Math.min(Math.max((windowHeight - sectionTop) / totalScrollDistance, 0), 1);
-      
+
       // Update timeline progress
       progress.style.height = `${scrolled * 100}%`;
-      
+
       // Update glow position and opacity
       if (glow) {
         const glowPosition = scrolled * (sectionHeight - 150);
         glow.style.top = `${glowPosition}px`;
         glow.style.opacity = scrolled > 0.1 && scrolled < 0.9 ? '1' : '0';
       }
-      
+
       // Update sleek line position
       if (sleekLine) {
         const linePosition = scrolled * (sectionHeight - 50);
@@ -136,7 +168,7 @@ const Home = () => {
     });
 
     window.addEventListener("scroll", handleTimelineScroll, { passive: true });
-    
+
     return () => {
       window.removeEventListener("scroll", handleTimelineScroll);
       cardObserver.disconnect();
@@ -151,7 +183,7 @@ const Home = () => {
     const handleMobileScroll = () => {
       const items = container.querySelectorAll('.mobile-image-item');
       const dots = document.querySelectorAll('.mobile-dot');
-      
+
       if (items.length === 0 || dots.length === 0) return;
 
       const containerRect = container.getBoundingClientRect();
@@ -164,7 +196,7 @@ const Home = () => {
         const itemRect = item.getBoundingClientRect();
         const itemCenter = itemRect.left + itemRect.width / 2;
         const distance = Math.abs(containerCenter - itemCenter);
-        
+
         if (distance < minDistance) {
           minDistance = distance;
           activeIndex = index;
@@ -178,7 +210,7 @@ const Home = () => {
     };
 
     container.addEventListener('scroll', handleMobileScroll, { passive: true });
-    
+
     return () => {
       container.removeEventListener('scroll', handleMobileScroll);
     };
@@ -246,6 +278,8 @@ const Home = () => {
       sleekLineEl.style.top = `${progress * travel}px`;
     };
 
+
+
     const handleDotClick = (nodeIndex) => {
       currentNode = nodeIndex;
       const nodeTop = cardPositions[nodeIndex];
@@ -289,7 +323,7 @@ const Home = () => {
     };
   }, []);
 
-  
+
   /* ---------------- Connector Line Animation from Hero to Services ---------------- */
   useEffect(() => {
     const heroEl = heroRef.current;
@@ -352,6 +386,22 @@ const Home = () => {
     };
   }, []);
 
+  // Global handler: any button click scrolls to contact (excluding form submits)
+  useEffect(() => {
+    const handleGlobalButtonClick = (e) => {
+      const targetEl = e.target.closest('button, [role="button"], .cta-btn, .cta-button, .apply');
+      if (!targetEl) return;
+      // Skip if it's a submit button or inside a form (e.g., contact form submit)
+      const isSubmit = targetEl.getAttribute('type') === 'submit' || targetEl.closest('form');
+      if (isSubmit) return;
+      e.preventDefault();
+      scrollToSection(contactRef);
+    };
+
+    document.addEventListener('click', handleGlobalButtonClick, true);
+    return () => document.removeEventListener('click', handleGlobalButtonClick, true);
+  }, []);
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 1024);
@@ -400,16 +450,16 @@ const Home = () => {
     // Fallback animation if anime.js fails to load
     const fallbackAnimation = () => {
       const heroElements = [
-        '.hero-logo', '.hero-title', '.hero-subtitle', 
+        '.hero-logo', '.hero-title', '.hero-subtitle',
         '.hero-ctas', '.trust-badges'
       ];
-      
+
       heroElements.forEach((el, index) => {
         const element = document.querySelector(el);
         if (element) {
           element.style.opacity = '0';
           element.style.transform = 'translateY(30px)';
-          
+
           setTimeout(() => {
             element.style.transition = 'all 0.6s ease-out';
             element.style.opacity = '1';
@@ -422,7 +472,7 @@ const Home = () => {
     // Try anime.js first, fallback to CSS if it fails
     const timeoutId = setTimeout(fallbackAnimation, 2000);
     checkAnimeAndAnimate();
-    
+
     // Hero visual story animations
     const animateHeroStory = () => {
       // Animate flow lines first
@@ -456,7 +506,7 @@ const Home = () => {
 
     // Start hero story animation
     setTimeout(animateHeroStory, 500);
-    
+
     // Parallax effect for hero robot
     const handleHeroParallax = () => {
       const robot = document.querySelector('.hero-robot');
@@ -468,324 +518,144 @@ const Home = () => {
     };
 
     window.addEventListener('scroll', handleHeroParallax, { passive: true });
-    
+
     return () => {
       clearTimeout(timeoutId);
       window.removeEventListener('scroll', handleHeroParallax);
     };
   }, []);
 
+  /* ***************************************************************************************************** */
+  /* ********************************************** SERVICES SCROLL ************************************** */
+  /* ***************************************************************************************************** */
+
+
+  //   const [canScrollLeft, setCanScrollLeft] = useState(false);
+  // const [canScrollRight, setCanScrollRight] = useState(true);
+
+  // const checkScroll = () => {
+  //   const el = servicesGridRef.current;
+  //   if (!el) return;
+  //   setCanScrollLeft(el.scrollLeft > 0);
+  //   setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth);
+  // };
+
+  // useEffect(() => {
+  //   const el = servicesGridRef.current;
+  //   if (!el) return;
+
+  //   const onWheel = (e) => {
+  //     // if vertical scroll is stronger than horizontal, convert it to horizontal scroll
+  //     if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+  //       e.preventDefault();            // MUST be allowed by passive:false
+  //       el.scrollLeft += e.deltaY;     // move horizontally by the vertical wheel delta
+  //     }
+  //   };
+
+  //   el.addEventListener('wheel', onWheel, { passive: false });
+
+  //   return () => {
+  //     el.removeEventListener('wheel', onWheel);
+  //   };
+  // }, []);
 
 
   return (
     <div className="home-container">
       {/* Hero Section */}
-      <section className="revamped-hero" id='hero'>
-        <div className="hero-inner">
-          {/* Left Content */}
-          <div className="hero-left">
-            <div className="hero-logo">
-              <img src="/Assets/zaaric_logo.png" alt="Zaaric Logo" />
-            </div>
-            
-            <h1 className="hero-title">
-              Transforming <span className="highlight"> Your Ideas</span> into 
-              <span className="highlight"> Digital Reality</span>
-            </h1>
-            
-            <p className="hero-subtitle">
-              We bridge the gap between innovative AI concepts and market-ready solutions. 
-              From initial ideation to market analysis and final execution, we turn your 
-              vision into a competitive advantage.
-            </p>
-            
-            <div className="hero-ctas">
-              <button className="cta-btn">Start Your AI Journey</button>
-              <button className="cta-btn secondary">View Our Process</button>
-            </div>
-            
-            <div className="trust-badges">
-              <div className="badge-item">
-                <div className="badge-icon">🚀</div>
-                <span>AI Innovation</span>
-              </div>
-              <div className="badge-item">
-                <div className="badge-icon">📊</div>
-                <span>Market Research</span>
-              </div>
-              <div className="badge-item">
-                <div className="badge-icon">⚡</div>
-                <span>End-to-End Delivery</span>
-              </div>
-            </div>
+      <Suspense fallback={<div className="loading">Loading...</div>}>
+        <RevolutionaryHero heroRef={heroRef} />
+      </Suspense>
+
+
+      {/* Elite Parallax Transition */}
+      <div className="elite-parallax-transition"></div>
+
+      {/* Services Section */}
+      <Services ref={servicesRef} />
+
+
+
+      {/* Client Onboarding Process */}
+      <Suspense fallback={<div className="loading">Loading...</div>}>
+        <ClientOnboarding id='ClientOnBoarding' />
+      </Suspense>
+
+      {/* Industries We Empower */}
+      <Suspense fallback={<div className="loading">Loading...</div>}>
+        <EnterpriseIndustries ref={industriesRef} />
+      </Suspense>
+
+      {/* Team – timeline with scroll-activated dots and dynamic node navigation with sleek line */}
+      <section className="team" ref={teamRef} id="team">
+        <h2>Our Leadership</h2>
+        <p className="section-subtitle" style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 3rem' }}>
+          Visionary leaders transforming ideas into market-ready AI solutions with precision, speed, and innovation at scale.
+        </p>
+
+        <div className="timeline">
+          {/* Timeline line with progress */}
+          <div className="timeline-line" ref={timelineLineRef}>
+            <div className="timeline-progress" ref={timelineProgressRef}></div>
+            <div className="timeline-glow" ref={timelineGlowRef}></div>
+            <div className="timeline-sleek-line" ref={timelineSleekLineRef}></div>
           </div>
-          
-          {/* Right: Visual Story */}
-          <div className="hero-right">
-            <div className="hero-visual-story">
-              {/* Background Layer 1: AI Idea */}
-              <div className="story-layer idea-layer">
-                <img 
-                  src={aiIdeaImage} 
-                  alt="AI Innovation & Ideas" 
-                  className="story-image idea-image"
-                />
-                                 <div className="story-overlay idea-overlay">
-                   <div className="story-label">AI Innovation</div>
-                 </div>
+
+          {/* Timeline content */}
+          <div className="timeline-content">
+
+            {/* CEO */}
+            <article className="timeline-card left" data-node="0">
+              <div className="dot" onClick={() => onTimelineDotClick(0)}></div>
+              <div className="card-inner">
+                <h4>Hamza Kamran</h4>
+                <span className="role">Founder & CEO</span>
+                <p>
+                  Full-stack MERN developer with 3 years of experience. Having Agentic AI expertise,
+                  building Agentic Solutions in Fintech, Retail, Medical and Supply Chain.
+
+                </p>
+                <ul>
+                  <li>
+                    Recognized in highly prestigious Leadership Programs. Selected in Qimam Fellowship 2025
+                  </li>
+                  <li>Skilled in restful APIs and backend development with node/express and wide range of SQL/noSQL databases </li>
+                  <li>Frontend developer with GSAP and three js building pixel perfect user experiences</li>
+                </ul>
               </div>
-              
-              {/* Background Layer 2: Market Analysis */}
-              <div className="story-layer market-layer">
-                <img 
-                  src={marketAnalysisImage} 
-                  alt="Tech Market Analysis" 
-                  className="story-image market-image"
-                />
-                                 <div className="story-overlay market-overlay">
-                   <div className="story-label">Market Research</div>
-                 </div>
+            </article>
+            {!isMobile && <div className="card-img" id='img1'>
+              <img src="/Assets/CEO.png" alt="Hamza Kamran" />
+            </div>}
+
+            {/* CTO */}
+            <article className="timeline-card right" data-node="1">
+              <div className="dot" onClick={() => onTimelineDotClick(1)}></div>
+              <div className="card-inner">
+                <h4>Umair Khan Shinwai</h4>
+                <span className="role">Co-Founder & CTO</span>
+                <p>
+                  Agentic AI Engineer with 3 years of experience in the tech industry,
+                  specializing in Generative AI, agentic systems, and full-stack AI
+                  product development. , and leading AI adoption
+                  initiatives in academia and startups.
+                </p>
+                <ul>
+                  <li>Skilled in backend development with FastAPI,
+                    AI-driven frontend features with Next.js</li>
+                  <li>Proven track record of building
+                    autonomous AI agents, custom GPTs</li>
+                  <li> Building scalable SaaS applications
+                    for diverse use cases.</li>
+                </ul>
               </div>
-              
-              {/* Background Layer 3: Market Analysis 2 */}
-              <div className="story-layer market2-layer">
-                <img 
-                  src={marketAnalysis2Image} 
-                  alt="Advanced Market Analytics" 
-                  className="story-image market2-image"
-                />
-                                 <div className="story-overlay market2-overlay">
-                   <div className="story-label">Deep Analytics</div>
-                 </div>
-              </div>
-              
-              {/* Background Layer 4: Robot Working */}
-              <div className="story-layer working-layer">
-                <img 
-                  src={robotWorkingImage} 
-                  alt="AI Robot Working" 
-                  className="story-image working-image"
-                />
-                                 <div className="story-overlay working-overlay">
-                   <div className="story-label">AI Execution</div>
-                 </div>
-              </div>
-              
-              {/* Foreground: Hero Robot */}
-              <div className="story-layer robot-layer">
-                <img 
-                  src={robotImage} 
-                  alt="AI Robot - From Idea to Reality" 
-                  className="hero-robot"
-                />
-                                 <div className="robot-glow"></div>
-              </div>
-              
-              {/* Story Flow Lines */}
-              <div className="story-flow-lines">
-                <div className="flow-line idea-to-market"></div>
-                <div className="flow-line market2-to-working"></div>
-                <div className="flow-dots">
-                  <div className="flow-dot idea-dot"></div>
-                  <div className="flow-dot market-dot"></div>
-                  <div className="flow-dot working-dot"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+            </article>
+            {!isMobile && <div className="card-img" id='img2'>
+              <img src="/Assets/CTO.png" alt="Umair Khan Shinwai" />
+            </div>}
 
-
-      {/* Zaaric Scroll Gears Animation */}
-
-    <ZaaricScrollGears></ZaaricScrollGears>
-
-{/* Services Section */}
-<section className="services" id="services" ref={servicesRef}>
-  <div className="services-header">
-    <h2>Our Services</h2>
-    <p>
-      Zaaric delivers end-to-end solutions — from raw ideas to market-ready
-      products. We take care of everything so you can focus on growth.
-    </p>
-  </div>
-
-  <div className="services-grid">
-    <div className="service-card">
-      <h3>Idea Validation & Research</h3>
-      <ul>
-        <li><span className='blue-dot'>•</span> Market study & feasibility analysis</li>
-        <li><span className='blue-dot'>•</span> Structured product roadmapping</li>
-        <li><span className='blue-dot'>•</span> Competitive landscape research</li>
-      </ul>
-    </div>
-
-    <div className="service-card">
-      <h3>Agentic AI Solutions</h3>
-      <ul>
-        <li><span className='blue-dot'>•</span> Custom AI Agents for automation & workflows</li>
-        <li><span className='blue-dot'>•</span> LLM-powered copilots for enterprises</li>
-        <li><span className='blue-dot'>•</span> Agentic orchestration (multi-agent ecosystems)</li>
-      </ul>
-    </div>
-
-    <div className="service-card">
-      <h3>Product Design & Branding</h3>
-      <ul>
-        <li><span className='blue-dot'>•</span> UI/UX design & prototyping</li>
-        <li><span className='blue-dot'>•</span> Brand identity & visual design</li>
-        <li><span className='blue-dot'>•</span> Responsive design systems</li>
-      </ul>
-    </div>
-
-    <div className="service-card">
-      <h3>Full-Stack Development</h3>
-      <ul>
-        <li><span className='blue-dot'>•</span> Web & mobile applications</li>
-        <li><span className='blue-dot'>•</span> Backend & API development</li>
-        <li><span className='blue-dot'>•</span> Third-party integrations</li>
-      </ul>
-    </div>
-
-    <div className="service-card">
-      <h3>AI & Automation</h3>
-      <ul>
-        <li><span className='blue-dot'>•</span> Custom AI assistants</li>
-        <li><span className='blue-dot'>•</span> Machine learning models</li>
-        <li><span className='blue-dot'>•</span> Workflow automation</li>
-      </ul>
-    </div>
-
-    <div className="service-card">
-      <h3>Cloud & Infrastructure</h3>
-      <ul>
-        <li><span className='blue-dot'>•</span> Scalable cloud hosting</li>
-        <li><span className='blue-dot'>•</span> DevOps & CI/CD pipelines</li>
-        <li><span className='blue-dot'>•</span> Enterprise security</li>
-      </ul>
-    </div>
-
-    <div className="service-card">
-      <h3>Content & Creative Production</h3>
-      <ul>
-        <li><span className='blue-dot'>•</span> Video editing & production</li>
-        <li><span className='blue-dot'>•</span> Marketing campaigns</li>
-        <li><span className='blue-dot'>•</span> Creative assets & branding</li>
-      </ul>
-    </div>
-
-    <div className="service-card">
-      <h3>Launch & Growth Strategy</h3>
-      <ul>
-        <li><span className='blue-dot'>•</span> SEO & analytics optimization</li>
-        <li><span className='blue-dot'>•</span> Growth hacking strategies</li>
-        <li><span className='blue-dot'>•</span> Continuous product support</li>
-      </ul>
-    </div>
-  </div>
-
-  <div className="services-cta">
-    <button
-      onClick={() => scrollToSection(contactRef)}
-      className="cta-btn primary"
-    >
-      Start Your Project Today
-    </button>
-  </div>
-
-  <div className="services-cta-row">
-    <div className="srvc_logo">
-      <ZaaricAnimation />
-      <button
-        onClick={() => scrollToSection(contactRef)}
-        className="cta-btn primary animation-cta"
-      >
-        Book Your call now !
-      </button>
-    </div>
-  </div>
-</section>
-
-
-{/* ******************    INDUSTRIES !      ****************************/}
-
-
-<Industries ref={industriesRef} />
-
-{/* ******************    CLIENT ONBOARDING PROCESS !      ****************************/ }
-
-<ClientOnboarding />
-
-
-
-
-
-    {/* Team – timeline with scroll-activated dots and dynamic node navigation with sleek line */}
-<section className="team" ref={teamRef} id="team">
-  <h2>Our Leadership</h2>
-  <p className="section-subtitle">
-    The team that takes products from idea to market with precision and speed.
-  </p>
-
-  <div className="timeline">
-    {/* Timeline line with progress */}
-    <div className="timeline-line" ref={timelineLineRef}>
-      <div className="timeline-progress" ref={timelineProgressRef}></div>
-      <div className="timeline-glow" ref={timelineGlowRef}></div>
-      <div className="timeline-sleek-line" ref={timelineSleekLineRef}></div>
-    </div>
-
-         {/* Timeline content */}
-     <div className="timeline-content">
-
-              {/* CEO */}
-        <article className="timeline-card left" data-node="0">
-          <div className="dot" onClick={() => onTimelineDotClick(0)}></div>
-          <div className="card-inner">
-            <h4>Hamza Kamran</h4>
-            <span className="role">Founder & CEO</span>
-            <p>
-              Full-stack MERN developer with Agentic AI expertise. Leads end-to-end
-              product strategy and delivery—discovery, design, engineering, and
-              go-to-market. Selected for the Qimam Fellowship (0.3% acceptance),
-              recognized for leadership and execution.
-            </p>
-            <ul>
-              <li>Owns product direction, quality bar, and delivery velocity</li>
-              <li>Architects scalable MVP → Scale roadmaps for US/EU markets</li>
-              <li>Drives security, privacy, and enterprise readiness</li>
-            </ul>
-          </div>
-        </article>
-        {!isMobile && <div className="card-img" id='img1'>
-          <img src="/Assets/founder_ceo.jpg" alt="Hamza Kamran" />
-        </div>}
-
-        {/* CTO */}
-        <article className="timeline-card right" data-node="1">
-          <div className="dot" onClick={() => onTimelineDotClick(1)}></div>
-          <div className="card-inner">
-            <h4>Umair Khan Shinwai</h4>
-            <span className="role">Co-Founder & CTO</span>
-            <p>
-              Systems and cloud engineering leader. Designs fault-tolerant, secure
-              architectures and developer platforms. Champions CI/CD, observability,
-              and cloud cost discipline.
-            </p>
-            <ul>
-              <li>Cloud architecture on AWS/GCP with IaC and zero-downtime delivery</li>
-              <li>Data pipelines, integrations, and performance engineering</li>
-              <li>Team enablement, code quality, and standards</li>
-            </ul>
-          </div>
-        </article>
-                 {!isMobile && <div className="card-img" id='img2'>
-           <img src="/Assets/CEO.jpg" alt="Umair Khan Shinwai" />
-         </div>}
-
-        {/* Business Dev Lead */}
-        {/* <article className="timeline-card left" data-node="2">
+            {/* Business Dev Lead */}
+            {/* <article className="timeline-card left" data-node="2">
           <div className="dot" onClick={() => onTimelineDotClick(2)}></div>
           <div className="card-inner">
             <h4>Riyaan bin Shamas</h4>
@@ -801,12 +671,12 @@ const Home = () => {
             </ul>
           </div>
         </article> */}
-        {!isMobile && <div className="card-img" id='img3'>
-          <img src="/Assets/founder_ceo.jpg" alt="Riyaan bin Shamas" />
-        </div>} 
+            {!isMobile && <div className="card-img" id='img3'>
+              <img src="/Assets/founder_ceo.jpg" alt="Riyaan bin Shamas" />
+            </div>}
 
-        {/* Graphics Lead */}
-        {/* <article className="timeline-card right" data-node="3">
+            {/* Graphics Lead */}
+            {/* <article className="timeline-card right" data-node="3">
           <div className="dot" onClick={() => onTimelineDotClick(3)}></div>
           <div className="card-inner">
             <h4>M. Umair</h4>
@@ -822,64 +692,56 @@ const Home = () => {
             </ul>
           </div>
         </article> */}
-        {!isMobile && <div className="card-img" id='img4'>
-          <img src="/Assets/CEO.jpg" alt="M. Umair" />
-        </div>}
+            {!isMobile && <div className="card-img" id='img4'>
+              <img src="/Assets/CEO.jpg" alt="M. Umair" />
+            </div>}
 
-     </div>
+          </div>
 
-           {/* Mobile Images Container */}
-      {isMobile && <div className="mobile-images-container visibility">
-        <div className="mobile-image-item">
-          <div className="card-img">
-            <img src="/Assets/founder_ceo.jpg" alt="Hamza Kamran" />
-          </div>
-          <div className="mobile-image-info">
-            <h4>Hamza Kamran</h4>
-            <span className="role">Founder & CEO</span>
-          </div>
+          {/* Mobile Images Container */}
+          {isMobile && <div className="mobile-images-container visibility">
+            <div className="mobile-image-item">
+              <div className="card-img">
+                <img src="/Assets/CEO.png" alt="Hamza Kamran" />
+              </div>
+              <div className="mobile-image-info">
+                <h4>Hamza Kamran</h4>
+                <span className="role">Founder & CEO</span>
+              </div>
+            </div>
+            <div className="mobile-image-item">
+              <div className="card-img">
+                <img src="/Assets/CTO.png" alt="Umair Khan Shinwai" />
+              </div>
+              <div className="mobile-image-info">
+                <h4>Umair Khan Shinwai</h4>
+                <span className="role">Co-Founder & CTO</span>
+              </div>
+            </div>
+
+          </div>}
+
+          {/* Mobile Dots Navigation */}
+          {isMobile && <div className="mobile-images-dots">
+            <span className="mobile-dot active" onClick={() => handleMobileDotClick(0)}></span>
+            <span className="mobile-dot" onClick={() => handleMobileDotClick(1)}></span>
+
+          </div>}
         </div>
-        <div className="mobile-image-item">
-          <div className="card-img">
-            <img src="/Assets/CEO.jpg" alt="Umair Khan Shinwai" />
-          </div>
-          <div className="mobile-image-info">
-            <h4>Umair Khan Shinwai</h4>
-            <span className="role">Co-Founder & CTO</span>
-          </div>
-        </div>
-        <div className="mobile-image-item">
-          <div className="card-img">
-            <img src="/Assets/founder_ceo.jpg" alt="Riyaan bin Shamas" />
-          </div>
-          <div className="mobile-image-info">
-            <h4>Riyaan bin Shamas</h4>
-            <span className="role">Business Development Lead</span>
-          </div>
-        </div>
-        <div className="mobile-image-item">
-          <div className="card-img">
-            <img src="/Assets/CEO.jpg" alt="M. Umair" />
-          </div>
-          <div className="mobile-image-info">
-            <h4>M. Umair</h4>
-            <span className="role">Graphics Lead</span>
-          </div>
-        </div>
-      </div>}
+      </section>
 
-     {/* Mobile Dots Navigation */}
-     {isMobile && <div className="mobile-images-dots">
-       <span className="mobile-dot active" onClick={() => handleMobileDotClick(0)}></span>
-       <span className="mobile-dot" onClick={() => handleMobileDotClick(1)}></span>
-       <span className="mobile-dot" onClick={() => handleMobileDotClick(2)}></span>
-       <span className="mobile-dot" onClick={() => handleMobileDotClick(3)}></span>
-     </div>}
-  </div>
-</section>
+      {/* Mission & Vision Section */}
+      <Suspense fallback={<div className="loading">Loading...</div>}>
+        <TrustIndicators />
+      </Suspense>
 
+      {/* AI Capabilities Section */}
+      <Suspense fallback={<div className="loading">Loading...</div>}>
+        <AICapabilities />
+      </Suspense>
 
-
+      {/* AI Stats Section */}
+      <AIStats />
 
       {/* Careers – enterprise recruiting block */}
       <section className="careers" ref={careersRef} id="careers">
@@ -890,21 +752,21 @@ const Home = () => {
           <div className="job-board reveal" {...setDelay(0)}>
             <div className="job">
               <div>
-                <h5>Senior Full-Stack Engineer (React/Node)</h5>
+                <h5>Senior Agentic AI Developer</h5>
                 <div className="meta">Remote • Pakistan/US overlap • Full-time</div>
               </div>
               <button className="apply" onClick={() => scrollToSection(contactRef)}>Apply</button>
             </div>
             <div className="job">
               <div>
-                <h5>Product Designer (Systems & Motion)</h5>
+                <h5>Senior UIUX Designer </h5>
                 <div className="meta">Remote • Portfolio required • Contract/FT</div>
               </div>
               <button className="apply" onClick={() => scrollToSection(contactRef)}>Apply</button>
             </div>
             <div className="job">
               <div>
-                <h5>Business Development Associate (US/EU)</h5>
+                <h5>Business Development Associate</h5>
                 <div className="meta">Remote • Commission + Base • Entry/Mid</div>
               </div>
               <button className="apply" onClick={() => scrollToSection(contactRef)}>Apply</button>
@@ -913,7 +775,7 @@ const Home = () => {
 
           <div className="careers-side">
             <div className='careerImg'>
-                <img src="/Assets/techGuy.png" width='500' height='700' ></img>
+              <img src="/Assets/techGuy.png" width='500' height='700' ></img>
             </div>
           </div>
         </div>
@@ -944,10 +806,10 @@ const Home = () => {
             <p>Defining Digital Excellence</p>
           </div>
           <div className="footer-links">
-            <a href="/" onClick={(e)=>{e.preventDefault(); window.scrollTo({top:0,behavior:"smooth"})}}>Home</a>
-            <a href="/" onClick={(e)=>{e.preventDefault(); scrollToSection(servicesRef)}}>Services</a>
-            <a href="/" onClick={(e)=>{e.preventDefault(); scrollToSection(aboutRef)}}>About Us</a>
-            <a href="/" onClick={(e)=>{e.preventDefault(); scrollToSection(contactRef)}}>Contact</a>
+            <a href="/" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }) }}>Home</a>
+            <a href="/" onClick={(e) => { e.preventDefault(); scrollToSection(servicesRef) }}>Services</a>
+            <a href="/" onClick={(e) => { e.preventDefault(); scrollToSection(aboutRef) }}>About Us</a>
+            <a href="/" onClick={(e) => { e.preventDefault(); scrollToSection(contactRef) }}>Contact</a>
           </div>
           <div className="footer-social">
             <a href="https://www.linkedin.com/company/106320714/admin/dashboard/" aria-label="LinkedIn">Linkedin</a>

@@ -24,11 +24,11 @@
     height: 100%;
     background:
         linear-gradient(180deg, rgba(10,10,10,1) 0%, rgba(10,10,10,0) 8%),
-        radial-gradient(circle at 50% 50%, rgba(46,196,182,0.15), rgba(0,0,0,0) 60%),
+        radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.15), rgba(0,0,0,0) 60%),
         linear-gradient(180deg, rgba(10,10,10,0) 92%, rgba(10,10,10,0) 100%),
-        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="none"/><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(46,196,182,0.27)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="none"/><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgb(0, 198, 255)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
     background-size: cover, cover, cover, auto;
-    opacity: 1;
+    opacity: 0.5;
     z-index: -1;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .zaaric-cta {
-    background: linear-gradient(90deg, #2ec4b6, #00a899);
+    background: linear-gradient(90deg, #00c8ff, #00c8ff);
     color: #ffffff;
     border: 1px solid rgba(255,255,255,0.18);
     padding: 12px 28px;

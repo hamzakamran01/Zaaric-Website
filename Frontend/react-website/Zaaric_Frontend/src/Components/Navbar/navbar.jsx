@@ -1,116 +1,134 @@
-import React, { useEffect, useState } from 'react';
-import './navbar.css';
-import { Link } from 'react-router-dom';
-import logo from '../../assets/zaaric_logo.png';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import logo from "../../assets/zaaric_logo.png";
+import "./navbar.css";
 
 const Navbar = () => {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
+  // Smooth scroll handler
   const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) element.scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById(sectionId);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Scroll detection (sticky + hide on scroll down)
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 0); // turn black as soon as scroll starts
-    onScroll(); // set initial state in case user reloads mid-page
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      if (currentY > lastScrollY && currentY > 80) {
+        setHidden(true); // hide navbar
+      } else {
+        setHidden(false); // show navbar
+      }
+      setScrolled(currentY > 0);
+      setLastScrollY(currentY);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
-  const showNavBar = () => setIsClicked(true);
-  const hideNavBar = () => setIsClicked(false);
+  // Toggle mobile menu
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+    document.body.style.overflow = isOpen ? "auto" : "hidden";
+  };
+  
 
   return (
-    <header className={`header ${scrolled ? 'scrolled' : ''}`}>
-      <div className="navBar">
+    <header
+      className={`navbar ${scrolled ? "scrolled" : ""} ${
+        hidden ? "hidden" : ""
+      }`}
+    >
+      <div className="navbar-container">
+        {/* Logo */}
         <div
-          className="logo"
-          onClick={() => scrollToSection('hero')}
-          style={{ cursor: 'pointer' }}
+          className="navbar-logo"
+          onClick={() => scrollToSection("hero")}
+          style={{ cursor: "pointer" }}
         >
-          <img src={logo} width="150" alt="Zaaric Logo" />
+          <img src={logo} alt="Zaaric Logo" width={140} height={50} />
         </div>
 
-        <ul className="navMenu hidePCnavOnMobile">
-          <li onClick={() => scrollToSection('hero')}>
-            <Link to="/" style={{ textDecoration: 'none' }}>Home</Link>
-          </li>
-          <li onClick={() => scrollToSection('team')}>
-            <Link to="/" style={{ textDecoration: 'none' }}>Team</Link>
-          </li>
-          <li onClick={() => scrollToSection('services')}>
-            <Link to="/" style={{ textDecoration: 'none' }}>Services</Link>
-          </li>
-          <li onClick={() => scrollToSection('industries')}>
-            <Link to="/" style={{ textDecoration: 'none' }}>Industries</Link>
-          </li>
-          <li onClick={() => scrollToSection('careers')}>
-            <Link to="/" style={{ textDecoration: 'none' }}>Careers</Link>
-          </li>
-          <li className="About" onClick={() => scrollToSection('about')}>
-            <Link to="/" style={{ textDecoration: 'none' }}>About</Link>
-          </li>
-          <li className="Contact" onClick={() => scrollToSection('contact')}>
-            <Link to="/" style={{ textDecoration: 'none' }}>Contact</Link>
-          </li>
-        </ul>
+        {/* Desktop Links */}
+        <nav className="navbar-links">
+          {[
+            { name: "Home", id: "hero" },
+            { name: "Team", id: "team" },
+            { name: "Services", id: "services" },
+            { name: "Industries", id: "industries" },
+            { name: "Careers", id: "careers" },
+            { name: "About", id: "about" },
+            { name: "Contact", id: "contact" },
+          ].map((link) => (
+            <Link
+              key={link.id}
+              to="/"
+              onClick={() => scrollToSection(link.id)}
+              className="nav-link"
+            >
+              {link.name}
+            </Link>
+          ))}
+        </nav>
 
-        {/* Quick Access Button */}
-        <div
-          className="pf pf_1"
-          style={{
-            display: !isClicked ? 'none' : 'block',
-            transform: isClicked ? 'scale(0.001)' : 'scale(1)'
-          }}
+        {/* Mobile Menu Toggle */}
+        <button
+          className="navbar-toggle"
+          onClick={toggleMenu}
+          aria-label="Toggle Menu"
         >
-          <Link to="/" style={{ textDecoration: 'none' }}>
-            <section onClick={() => scrollToSection('team')}>Team</section>
-          </Link>
-        </div>
-
-        {/* Mobile navbar icon */}
-        <div className="navBarOpen showOnMobile">
-          <a onClick={showNavBar} href="#!">
-            <svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26" fill="#e8eaed">
-              <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+          {isOpen ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              width="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M18.3 5.71 12 12l6.3 6.29-1.42 1.42L12 14.83l-6.29 6.3-1.42-1.42L9.17 12 2.29 5.71 3.71 4.3 12 12.17l8.29-7.88z" />
             </svg>
-          </a>
-        </div>
-
-        {/* Mobile sidebar */}
-        <ul className={`sidebar navMenu ${isClicked ? 'show-sidebar' : ''}`}>
-          <li className="navBarClose" onClick={hideNavBar}>
-            <svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26" fill="#e8eaed">
-              <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              width="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
             </svg>
-          </li>
-          <li onClick={() => { hideNavBar(); scrollToSection('hero'); }}>
-            <Link to="/" style={{ textDecoration: 'none' }}>Home</Link>
-          </li>
-          <li onClick={() => { hideNavBar(); scrollToSection('team'); }}>
-            <Link to="/" style={{ textDecoration: 'none' }}>Team</Link>
-          </li>
-          <li onClick={() => { hideNavBar(); scrollToSection('services'); }}>
-            <Link to="/" style={{ textDecoration: 'none' }}>Services</Link>
-          </li>
-          <li onClick={() => { hideNavBar(); scrollToSection('industries'); }}>
-            <Link to="/" style={{ textDecoration: 'none' }}>Industries</Link>
-          </li>
-          <li onClick={() => { hideNavBar(); scrollToSection('insights'); }}>
-            <Link to="/" style={{ textDecoration: 'none' }}>Insights</Link>
-          </li>
-          <li onClick={() => { hideNavBar(); scrollToSection('careers'); }}>
-            <Link to="/" style={{ textDecoration: 'none' }}>Careers</Link>
-          </li>
-          <li className="About" onClick={() => { hideNavBar(); scrollToSection('about'); }}>
-            <Link to="/" style={{ textDecoration: 'none' }}>About</Link>
-          </li>
-          <li className="Contact" onClick={() => { hideNavBar(); scrollToSection('contact'); }}>
-            <Link to="/" style={{ textDecoration: 'none' }}>Contact</Link>
-          </li>
-        </ul>
+          )}
+        </button>
+
+        {/* Mobile Drawer */}
+        <nav className={`mobile-menu ${isOpen ? "open" : ""}`}>
+          {[
+            { name: "Home", id: "hero" },
+            { name: "Team", id: "team" },
+            { name: "Services", id: "services" },
+            { name: "Industries", id: "industries" },
+            { name: "Careers", id: "careers" },
+            { name: "About", id: "about" },
+            { name: "Contact", id: "contact" },
+          ].map((link) => (
+            <Link
+              key={link.id}
+              to="/"
+              onClick={() => {
+                toggleMenu();
+                scrollToSection(link.id);
+              }}
+              className="mobile-nav-link"
+            >
+              {link.name}
+            </Link>
+          ))}
+        </nav>
       </div>
     </header>
   );

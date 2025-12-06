@@ -1,0 +1,384 @@
+/* aiStats.css */
+
+/* Slanted non-rectangular shape for premium, enterprise-level UI inspired by Stripe */
+.global-commerce-section {
+  position: relative;
+  background: linear-gradient(70deg, #ffffff 0%, #ffffff 100%);
+  color: #000000;
+  padding: 80px 40px;
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 20%, 100% 100%, 0 80%);
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-family: 'Inter', sans-serif;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.text-content {
+  flex: 1;
+  max-width: 45%;
+}
+
+.subtitle {
+  color: #00bfff;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 15px;
+}
+
+.title {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.description {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-top: 25px;
+  opacity: 0.9;
+}
+
+.globe-container {
+  flex: 1;
+  height: 600px;
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 2rem;
+  
+  
+}
+
+.stats-wrapper {
+  display: flex;
+  justify-content: space-around;
+  max-width: 1400px;
+  margin: 60px auto 0;
+  flex-wrap: wrap;
+  margin-bottom: 6rem;
+  margin-top: -2rem;
+}
+
+.stat-item {
+  text-align: left;
+  min-width: 200px;
+  margin: 20px;
+}
+
+.stat-value {
+  font-size: 48px;
+  font-weight: 700;
+  color: #00bfff;
+  display: inline-block;
+}
+
+.stat-suffix {
+  font-size: 36px;
+  color: #00bfff;
+}
+
+.stat-label {
+  font-size: 16px;
+  line-height: 1.4;
+  margin-top: 10px;
+}
+
+.stat-source {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-top: 5px;
+}
+
+/* Premium animations for elite UX */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.text-content > * {
+  animation: fadeInUp 1.2s ease-out forwards;
+}
+
+.text-content .subtitle { animation-delay: 0.2s; }
+.text-content .title:nth-child(2) { animation-delay: 0.4s; }
+.text-content .title:nth-child(3) { animation-delay: 0.6s; }
+.text-content .description { animation-delay: 0.8s; }
+
+.stat-item {
+  animation: fadeInUp 1.5s ease-out forwards;
+  opacity: 0;
+}
+
+.stat-item:nth-child(1) { animation-delay: 1s; }
+.stat-item:nth-child(2) { animation-delay: 1.2s; }
+.stat-item:nth-child(3) { animation-delay: 1.4s; }
+.stat-item:nth-child(4) { animation-delay: 1.6s; }
+.stat-item:nth-child(5) { animation-delay: 1.8s; }
+
+/* Full responsiveness across all devices */
+@media (max-width: 1200px) {
+  .content-wrapper {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .text-content {
+    max-width: 100%;
+    margin-bottom: 0rem;
+  }
+
+  .globe-container {
+    height: 400px;
+    justify-content: center;
+    padding-right: 0;
+  }
+
+  .stats-wrapper {
+    justify-content: center;
+  }
+  .global-commerce-section{
+    margin-top: 4rem;
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+    clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 90%);
+
+  }
+}
+
+@media (max-width: 768px) {
+  .global-commerce-section {
+    padding: 260px 20px;
+    margin-top: -5rem;
+    clip-path: polygon(0% 5%, 100% 0%, 100% 95%, 0% 100%);
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+
+  .globe-container {
+    height: 250px;
+    min-height: 200px;
+    margin: 20px 0;
+    justify-content: center;
+    padding-right: 0;
+  }
+
+  .stat-value {
+    font-size: 36px;
+  }
+
+  .stat-suffix {
+    font-size: 28px;
+  }
+
+  .stat-label {
+    font-size: 14px;
+  }
+  .stat-item:nth-child(3){
+    margin-left: 3rem;
+  }
+  .stat-item:nth-child(5){
+    margin-left: 4rem;
+
+  }
+
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 32px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .description {
+    font-size: 14px;
+  }
+
+  .globe-container {
+    height: 200px;
+    min-height: 150px;
+    justify-content: center;
+    padding-right: 0;
+  }
+}
+
+/* ---------- Large Laptops & Desktops (1025px - 1440px) ---------- */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .global-commerce-section {
+    padding: 100px 80px;
+  }
+
+  .title {
+    font-size: 34px;
+  }
+
+  .description {
+    font-size: 20px;
+    min-width: 400px;
+  }
+
+  .stat-value {
+    font-size: 52px;
+  }
+  .globe-container{
+    margin-left: -10rem;
+  }
+
+  .stat-suffix {
+    font-size: 40px;
+  }
+
+  .stat-label {
+    font-size: 18px;
+  }
+}
+
+/* ---------- Big Screens (1441px - 1920px) ---------- */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .global-commerce-section {
+    padding: 120px 200px;
+  }
+
+  .content-wrapper{
+    max-width: 2400px;
+  }
+
+  .title {
+    font-size: 42px;
+  }
+
+  .description {
+    font-size: 22px;
+    line-height: 1.8;
+    min-width: 400px;
+  }
+
+  .globe-container{
+    margin-left: -10rem;
+  }
+
+  .stat-value {
+    font-size: 60px;
+  }
+
+  .stat-suffix {
+    font-size: 44px;
+  }
+
+  .stat-label {
+    font-size: 20px;
+  }
+}
+
+/* ---------- Ultra-Wide Screens (1921px - 2560px) ---------- */
+@media (min-width: 1921px) and (max-width: 2560px) {
+  .global-commerce-section {
+    padding: 150px 140px;
+  }
+
+  .title {
+    font-size: 90px;
+  }
+
+  .description {
+    font-size: 28px;
+    line-height: 2;
+  }
+
+  .stat-value {
+    font-size: 80px;
+  }
+
+  .stat-suffix {
+    font-size: 56px;
+  }
+
+  .stat-label {
+    font-size: 24px;
+  }
+
+  .content-wrapper{
+    max-width: 2200px;
+  }
+}
+
+/* ---------- Super Ultra-Wide Screens (2561px - 3000px) ---------- */
+@media (min-width: 2561px) and (max-width: 3000px) {
+  .global-commerce-section {
+    padding: 180px 300px;
+    padding-right: 0px;
+  }
+
+  .title {
+    font-size: 110px;
+  }
+
+  .description {
+    font-size: 34px;
+    line-height: 2.2;
+  }
+
+  .stat-value {
+    font-size: 100px;
+  }
+
+  .stat-suffix {
+    font-size: 72px;
+  }
+
+  .stat-label {
+    font-size: 28px;
+  }
+  .content-wrapper{
+    max-width: 2800px;
+  }
+}
+
+/* ---------- Beyond 3000px (4K+ setups) ---------- */
+@media (min-width: 3001px) and (max-width: 3500px) {
+  .global-commerce-section {
+    padding: 220px 240px;
+  }
+
+  .title {
+    font-size: 140px;
+  }
+
+  .description {
+    font-size: 40px;
+  }
+
+  .stat-value {
+    font-size: 120px;
+  }
+
+  .stat-suffix {
+    font-size: 84px;
+  }
+
+  .stat-label {
+    font-size: 32px;
+  }
+}

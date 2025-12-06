@@ -1,240 +1,174 @@
-// Enterprise-Grade Client Onboarding (Pinned + Scrubbed, single-card reveal)
-// Requirements: gsap ^3 with ScrollTrigger; matching CSS file present in same folder
-import React, { useRef, useEffect, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+// Elite Enterprise ClientOnboarding with Scroll-Based Timeline
+// Premium horizontal timeline with smooth progress animations
+
+import React, { useState, useEffect, useRef } from "react";
 import "./ClientOnboarding.css";
 
-gsap.registerPlugin(ScrollTrigger);
+const STEPS = [
+  {
+    id: 1,
+    title: "Discovery",
+    subtitle: "Understanding Your Vision",
+    description:
+      "We uncover the core challenges, map opportunities, and define measurable success criteria with absolute clarity through structured workshops and stakeholder interviews.",
+    deliverables: ["Business Requirements", "Technical Specifications", "Success Metrics"],
+    duration: "1-2 weeks"
+  },
+  {
+    id: 2,
+    title: "Planning",
+    subtitle: "Strategic Blueprint",
+    description:
+      "A comprehensive roadmap aligns solution design, timelines, resource allocation, and risk controls—ensuring every move is deliberate, scalable, and future-proof.",
+    deliverables: ["Project Roadmap", "Architecture Design", "Resource Plan"],
+    duration: "2-3 weeks"
+  },
+  {
+    id: 3,
+    title: "Execution",
+    subtitle: "Building Excellence",
+    description:
+      "Through agile sprints, rigorous quality gates, continuous integration, and live stakeholder feedback loops, ideas transform into tangible, thoroughly tested outcomes.",
+    deliverables: ["Working Software", "Quality Reports", "Progress Updates"],
+    duration: "8-12 weeks"
+  },
+  {
+    id: 4,
+    title: "Delivery",
+    subtitle: "Seamless Launch",
+    description:
+      "From secure deployment to comprehensive knowledge transfer, we ensure smooth adoption, provide dedicated support, and drive measurable post-launch excellence.",
+    deliverables: ["Production Deployment", "Documentation", "Support Plan"],
+    duration: "1-2 weeks"
+  },
+];
 
-const ClientOnboarding = () => {
+export default function ClientOnboarding() {
+  const [activePhase, setActivePhase] = useState(0);
   const sectionRef = useRef(null);
-  const frameRef = useRef(null);
-  const circleRef = useRef(null);
-  const markersRef = useRef([]);
-  const markerIconsRef = useRef([]);
-  const stepsWrapRef = useRef(null);
-  const stepsRef = useRef([]);
-  const [activeStep, setActiveStep] = useState(0);
 
-  const processSteps = [
-    {
-      title: "Initial Meeting / Discovery",
-      description:
-        "We begin with a deep-dive discovery session to understand your needs, goals, and vision.",
-      icon: "🤝",
-      color: "#00e5ff",
-      bgColor: "rgba(0,229,255,0.1)",
-      image: "/Assets/point1.png",
-    },
-    {
-      title: "Research & Proposal (R&D)",
-      description:
-        "We validate feasibility, explore solution paths, and present a tailored proposal.",
-      icon: "🔬",
-      color: "#0a66ff",
-      bgColor: "rgba(10,102,255,0.1)",
-      image: "/Assets/point2.png",
-    },
-    {
-      title: "Deal & Finances",
-      description:
-        "We finalize scope, pricing, contracts, and milestones with complete transparency.",
-      icon: "💼",
-      color: "#7c3aed",
-      bgColor: "rgba(124,58,237,0.1)",
-      image: "/Assets/point3.png",
-    },
-    {
-      title: "Execution & Delivery",
-      description:
-        "We build, iterate, and deliver in milestones with clear progress updates.",
-      icon: "🚀",
-      color: "#10b981",
-      bgColor: "rgba(16,185,129,0.1)",
-      image: "/Assets/point4.png",
-    },
-  ];
+  // Calculate progress based on active phase (0-100%)
+  const progress = ((activePhase + 1) / STEPS.length) * 100;
 
-  markersRef.current = [];
-  markerIconsRef.current = [];
-  stepsRef.current = [];
-
-  useEffect(() => {
-    if (!frameRef.current || !circleRef.current) return;
-
-    const measureHeights = () => {
-      if (!stepsWrapRef.current) return;
-      const heights = stepsRef.current.filter(Boolean).map((el) => el.offsetHeight);
-      const maxH = heights.length ? Math.max(...heights) : 0;
-      stepsWrapRef.current.style.height = `${maxH}px`;
-      stepsWrapRef.current.style.position = "relative";
-    };
-    measureHeights();
-    const ro = new ResizeObserver(measureHeights);
-    stepsRef.current.filter(Boolean).forEach((el) => ro.observe(el));
-
-    const stepsCount = processSteps.length;
-    const segment = 1 / stepsCount;
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: {
-          trigger: frameRef.current,
-          start: "top top",
-          end: `+=${stepsCount * window.innerHeight}`,
-          pin: true,
-          scrub: 1,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      stepsRef.current.forEach((el, i) => {
-        if (!el) return;
-        gsap.set(el, {
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          autoAlpha: i === 0 ? 1 : 0,
-          y: i === 0 ? 0 : 30,
-          pointerEvents: i === 0 ? "auto" : "none",
-        });
-      });
-
-      // Rotate exactly 360/stepsCount for each card
-      tl.to(circleRef.current, { rotation: 360, ease: "none" }, 0);
-
-      tl.eventCallback("onUpdate", () => {
-        const ringRotation = gsap.getProperty(circleRef.current, "rotation") || 0;
-        markerIconsRef.current.forEach((iconEl, i) => {
-          const marker = markersRef.current[i];
-          if (!iconEl || !marker) return;
-          const angle = parseFloat(marker.dataset.angle || "0");
-          gsap.set(iconEl, { rotation: -(ringRotation + angle) });
-        });
-      });
-
-      for (let i = 1; i < stepsCount; i++) {
-        tl.to(
-          stepsRef.current[i - 1],
-          { autoAlpha: 0, y: -20, duration: 0.35, ease: "power2.in", pointerEvents: "none" },
-          i * segment
-        );
-        tl.to(
-          stepsRef.current[i],
-          { autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out", pointerEvents: "auto" },
-          i * segment + 0.05
-        );
-        tl.add(() => setActiveStep(i), i * segment);
-      }
-
-      tl.add(() => setActiveStep(0), 0);
-    }, frameRef);
-
-    return () => {
-      ro.disconnect();
-      ctx.revert();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
-  }, []);
-
-  const stepAngle = 360 / processSteps.length;
-  const ringRadius = 170;
+  // Handle phase node click - NO PAGE SCROLLING
+  const handlePhaseClick = (index) => {
+    setActivePhase(index);
+    // Removed scrollIntoView to prevent page scroll on click
+  };
 
   return (
-    <section className="client-onboarding" ref={sectionRef} id="process">
-      <div className="onboarding-frame" ref={frameRef}>
-        <div className="onboarding-container">
-          <div className="onboarding-header">
-            <h2 className="section-title">Our Client Onboarding Process</h2>
-            <p className="section-subtitle">
-              A premium 4-step journey <span>from initial discovery to successful delivery.</span>
-            </p>
-            <div className="progress-indicator-bar">
-              <div
-                className="progress-fill"
-                style={{
-                  width: `${((activeStep + 1) / processSteps.length) * 100}%`,
-                }}
-              />
-            </div>
-          </div>
-
-          <div className="onboarding-content">
-            <div className="process-circle-container">
-              <div className="process-circle" ref={circleRef}>
-                {processSteps.map((step, i) => {
-                  const angle = i * stepAngle;
-                  return (
-                    <div
-                      key={i}
-                      className={`step-marker ${activeStep === i ? "active" : ""}`}
-                      ref={(el) => (markersRef.current[i] = el)}
-                      data-angle={angle}
-                      style={{
-                        transform: `rotate(${angle}deg) translateY(-${ringRadius}px)`,
-                        "--step-color": step.color,
-                      }}
-                    >
-                      <div
-                        className="marker-icon"
-                        ref={(el) => (markerIconsRef.current[i] = el)}
-                        title={step.title}
-                        aria-label={step.title}
-                      >
-                        {step.icon}
-                      </div>
-                    </div>
-                  );
-                })}
-                <div className="circle-center">
-                  <div className="center-icon">⚡</div>
-                  
-                </div>
-              </div>
-              <div className="center-text">
-                    {activeStep + 1} / {processSteps.length}
-                  </div>
-            </div>
-
-            <div className="process-steps-wrap" ref={stepsWrapRef}>
-              {processSteps.map((step, i) => (
-                <article
-                  key={i}
-                  ref={(el) => (stepsRef.current[i] = el)}
-                  className={`process-step ${activeStep === i ? "active" : ""}`}
-                  aria-hidden={activeStep !== i}
-                  style={{
-                    "--step-color": step.color,
-                    "--step-bg": step.bgColor,
-                  }}
-                >
-                  <header className="step-header">
-                    <div className="step-number">{i + 1}</div>
-                    <div className="step-icon">{step.icon}</div>
-                    <div className="step-title">{step.title}</div>
-                  </header>
-                  <p className="step-description">{step.description}</p>
-                  <img src={step.image} alt={step.title} className="step-image" />
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <div className="onboarding-cta">
-            <div className="cta-content">
-              <h3>Ready to Start Your Project?</h3>
-              <p>Begin with step 1 — book your discovery call.</p>
-              <button className="cta-button">Book Your Discovery Call</button>
-            </div>
-          </div>
+    <section className="onboarding-timeline-section" ref={sectionRef} id="ClientOnBoarding">
+      {/* Section Header */}
+      <header className="timeline-header">
+        <div className="header-badge">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 2L10 6L14 7L11 10L12 14L8 12L4 14L5 10L2 7L6 6L8 2Z" fill="currentColor" />
+          </svg>
+          <span>Our Process</span>
         </div>
+        <h2 className="timeline-title">
+          Client Onboarding with <span className="gradient-text">Zaaric</span>
+        </h2>
+        <p className="timeline-subtitle">
+          A four-phase enterprise framework delivering measurable outcomes from discovery to deployment
+        </p>
+      </header>
+
+      {/* Horizontal Timeline */}
+      <div className="timeline-container">
+        {/* Timeline Track */}
+        <div className="timeline-track">
+          <div
+            className="timeline-progress-bar"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+
+        {/* Timeline Nodes */}
+        <div className="timeline-nodes">
+          {STEPS.map((step, index) => (
+            <div
+              key={step.id}
+              className={`timeline-node ${index <= activePhase ? 'active' : ''
+                } ${index === activePhase ? 'current' : ''} ${index === activePhase + 1 ? 'buzz' : ''
+                }`}
+              style={{ left: `${(index / (STEPS.length - 1)) * 100}%` }}
+              onClick={() => handlePhaseClick(index)}
+            >
+              <div className="node-circle">
+                <span className="node-number">{step.id}</span>
+                <div className="node-glow"></div>
+              </div>
+              <div className="node-label">{step.title}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Phase Details Cards */}
+      <div className="phases-grid">
+        {STEPS.map((step, index) => (
+          <div
+            key={step.id}
+            className={`phase-card ${index === activePhase ? 'active' : ''} ${index < activePhase ? 'completed' : ''}`}
+          >
+            <div className="phase-header">
+              <div className="phase-number">
+                <span>{String(step.id).padStart(2, '0')}</span>
+              </div>
+              <div className="phase-title-group">
+                <h3 className="phase-title">{step.title}</h3>
+                <p className="phase-subtitle">{step.subtitle}</p>
+              </div>
+            </div>
+
+            <p className="phase-description">{step.description}</p>
+
+            <div className="phase-meta">
+              <div className="meta-item">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <rect x="2" y="3" width="12" height="10" rx="1" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M2 6H14" stroke="currentColor" strokeWidth="1.5" />
+                  <circle cx="5" cy="1.5" r="0.5" fill="currentColor" />
+                  <circle cx="11" cy="1.5" r="0.5" fill="currentColor" />
+                </svg>
+                <span>{step.duration}</span>
+              </div>
+            </div>
+
+            <div className="deliverables-list">
+              <div className="deliverables-label">Key Deliverables:</div>
+              <ul>
+                {step.deliverables.map((item, i) => (
+                  <li key={i}>
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M2 6L5 9L10 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Phase Indicator */}
+            {index === activePhase && (
+              <div className="active-indicator">
+                <span>Current Phase</span>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Progress Indicator */}
+      <div className="scroll-indicator">
+        <div className="indicator-bar">
+          <div className="indicator-fill" style={{ width: `${progress}%` }}></div>
+        </div>
+        <p className="indicator-text">
+          Click the timeline nodes to explore our process • Phase {activePhase + 1} of {STEPS.length}
+        </p>
       </div>
     </section>
   );
-};
-
-export default ClientOnboarding;
+}

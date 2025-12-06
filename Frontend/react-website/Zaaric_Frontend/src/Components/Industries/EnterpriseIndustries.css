@@ -1,0 +1,795 @@
+/* ===========================
+   ZAARIC — ENTERPRISE INDUSTRIES
+   Bento Grid Layout with Advanced Interactions
+   =========================== */
+
+/* CSS Variables */
+:root {
+  --ind-primary: #00e6ff;
+  --ind-secondary: #0072ff;
+  --ind-bg: #07070a;
+  --ind-card-bg: rgba(255, 255, 255, 0.02);
+  --ind-glass-border: rgba(255, 255, 255, 0.08);
+  --ind-text: #eaf8ff;
+  --ind-text-muted: #9fb0be;
+  --card-color: #00e6ff;
+}
+
+/* Main Section */
+.enterprise-industries-section {
+  position: relative;
+  background: linear-gradient(180deg, var(--ind-bg) 0%, #0b0b0f 100%);
+  color: var(--ind-text);
+  padding: clamp(80px, 12vh, 140px) clamp(20px, 5vw, 80px);
+  overflow: hidden;
+  margin-top: -2rem;
+}
+
+/* Ambient Background Orbs */
+.industries-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.2;
+  pointer-events: none;
+  animation: floatOrb 20s ease-in-out infinite;
+}
+
+.orb-left {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--ind-primary) 0%, transparent 70%);
+  top: 40%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.orb-right {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--ind-secondary) 0%, transparent 70%);
+  bottom: 20%;
+  right: -10%;
+  animation-delay: 5s;
+}
+
+@keyframes floatOrb {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+}
+
+/* Container */
+.industries-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* =====================
+   HEADER SECTION
+   ===================== */
+
+.industries-header {
+  text-align: center;
+  margin-bottom: clamp(48px, 8vh, 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(0, 230, 255, 0.08);
+  border: 1px solid rgba(0, 230, 255, 0.2);
+  border-radius: 999px;
+  color: var(--ind-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 16px rgba(0, 230, 255, 0.1);
+  animation: badgePulse 3s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+
+  0%,
+  100% {
+    box-shadow: 0 4px 16px rgba(0, 230, 255, 0.1);
+  }
+
+  50% {
+    box-shadow: 0 6px 24px rgba(0, 230, 255, 0.2);
+  }
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -0.02em;
+  color: var(--ind-text);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--ind-primary), var(--ind-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subtitle {
+  margin: 0;
+  color: var(--ind-text-muted);
+  max-width: 700px;
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* =====================
+   FILTER PILLS
+   ===================== */
+
+.filter-pills {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(40px, 6vh, 64px);
+  padding: 0 20px;
+}
+
+.filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 24px;
+  background: var(--ind-card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--ind-glass-border);
+  border-radius: 999px;
+  color: var(--ind-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.filter-pill:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--ind-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 229, 255, 0.15);
+}
+
+.filter-pill.active {
+  background: linear-gradient(135deg, var(--ind-primary), var(--ind-secondary));
+  border-color: transparent;
+  color: #000;
+  box-shadow:
+    0 8px 24px rgba(0, 229, 255, 0.3),
+    0 4px 12px rgba(0, 114, 255, 0.2);
+}
+
+.filter-pill.active svg {
+  animation: checkPop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes checkPop {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* =====================
+   BENTO GRID LAYOUT
+   ===================== */
+
+.industries-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: minmax(280px, auto);
+  gap: clamp(16px, 2.5vw, 28px);
+  margin-bottom: clamp(48px, 8vh, 80px);
+}
+
+/* Card positioning in Bento Grid */
+.card-1 {
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
+}
+
+.card-2 {
+  grid-column: 3 / 7;
+  grid-row: 1 / 2;
+}
+
+.card-3 {
+  grid-column: 3 / 5;
+  grid-row: 2 / 3;
+}
+
+.card-4 {
+  grid-column: 5 / 7;
+  grid-row: 2 / 3;
+}
+
+.card-5 {
+  grid-column: 1 / 5;
+  grid-row: 3 / 4;
+}
+
+.card-6 {
+  grid-column: 5 / 7;
+  grid-row: 3 / 4;
+}
+
+/* =====================
+   INDUSTRY CARDS
+   ===================== */
+
+.enterprise-industry-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: clamp(24px, 3.5vw, 40px);
+  background: var(--ind-card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--ind-glass-border);
+  border-radius: 24px;
+  cursor: pointer;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.enterprise-industry-card.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Staggered animation delays */
+.card-1.visible {
+  transition-delay: 0.1s;
+}
+
+.card-2.visible {
+  transition-delay: 0.2s;
+}
+
+.card-3.visible {
+  transition-delay: 0.3s;
+}
+
+.card-4.visible {
+  transition-delay: 0.4s;
+}
+
+.card-5.visible {
+  transition-delay: 0.5s;
+}
+
+.card-6.visible {
+  transition-delay: 0.6s;
+}
+
+/* Card Hover State */
+.enterprise-industry-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--card-color);
+  box-shadow:
+    0 20px 60px rgba(0, 229, 255, 0.2),
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.enterprise-industry-card.expanded {
+  transform: scale(1.05);
+  z-index: 10;
+  box-shadow:
+    0 24px 80px rgba(0, 229, 255, 0.3),
+    0 16px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Card Glow Effect */
+.card-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% -20%, var(--card-color), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.enterprise-industry-card:hover .card-glow {
+  opacity: 0.15;
+}
+
+/* =====================
+   CARD HEADER
+   ===================== */
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.icon-wrapper {
+  flex-shrink: 0;
+  width: clamp(56px, 7vw, 72px);
+  height: clamp(56px, 7vw, 72px);
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(0, 230, 255, 0.1), rgba(0, 114, 255, 0.08));
+  border: 1px solid rgba(0, 230, 255, 0.2);
+  border-radius: 18px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.icon-wrapper .industry-icon {
+  width: clamp(28px, 4vw, 36px);
+  height: clamp(28px, 4vw, 36px);
+  color: var(--ind-primary);
+  transition: all 0.3s ease;
+}
+
+.enterprise-industry-card:hover .icon-wrapper {
+  background: linear-gradient(135deg, rgba(0, 230, 255, 0.2), rgba(0, 114, 255, 0.15));
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 12px 32px rgba(0, 229, 255, 0.3);
+}
+
+.enterprise-industry-card:hover .industry-icon {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px var(--card-color));
+}
+
+.header-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header-content h3 {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  font-weight: 800;
+  color: var(--ind-text);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.roi-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 8px;
+  color: #10b981;
+  font-size: 0.75rem;
+  font-weight: 700;
+  width: fit-content;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+}
+
+/* =====================
+   CARD CONTENT
+   ===================== */
+
+.industry-desc {
+  margin: 0;
+  color: var(--ind-text-muted);
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* Premium Details Row - Adapts to Card Container Size */
+.premium-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(0, 230, 255, 0.04);
+  border: 1px solid rgba(0, 230, 255, 0.1);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.detail-item:hover {
+  background: rgba(0, 230, 255, 0.08);
+  border-color: rgba(0, 230, 255, 0.2);
+  transform: translateX(2px);
+}
+
+.detail-icon {
+  font-size: 1.25rem;
+  min-width: 28px;
+  text-align: center;
+  filter: grayscale(0.3);
+}
+
+.detail-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.detail-label {
+  font-size: 0.7rem;
+  color: var(--ind-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.detail-value {
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--ind-primary), var(--ind-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+/* Highlights List */
+.industry-highlights {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.industry-highlights li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(0, 230, 255, 0.05);
+  border: 1px solid rgba(0, 230, 255, 0.15);
+  border-radius: 10px;
+  color: var(--ind-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.industry-highlights li svg {
+  flex-shrink: 0;
+}
+
+.enterprise-industry-card:hover .industry-highlights li {
+  background: rgba(0, 230, 255, 0.1);
+  border-color: rgba(0, 230, 255, 0.3);
+  transform: translateX(4px);
+}
+
+/* Featured Solutions - For Tall Cards */
+.featured-solutions {
+  margin-top: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(0, 230, 255, 0.05), rgba(0, 114, 255, 0.05));
+  border: 1px solid rgba(0, 230, 255, 0.15);
+  border-radius: 14px;
+}
+
+.featured-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ind-primary);
+  margin-bottom: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.solutions-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.solution-badge {
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 230, 255, 0.2);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: var(--ind-text);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.solution-badge:hover {
+  background: rgba(0, 230, 255, 0.08);
+  border-color: var(--ind-primary);
+  transform: scale(1.02);
+}
+
+.expand-indicator .arrow {
+  transition: transform 0.3s ease;
+}
+
+.enterprise-industry-card:hover .expand-indicator {
+  opacity: 1;
+  color: var(--ind-primary);
+}
+
+.enterprise-industry-card:hover .expand-indicator .arrow {
+  transform: translateY(4px);
+  animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.enterprise-industry-card.expanded .expand-indicator .arrow {
+  transform: rotate(180deg);
+}
+
+/* Pulse Corner */
+.pulse-corner {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 10px;
+  height: 10px;
+  background: var(--card-color);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 var(--card-color);
+  animation: pulseCorner 2s ease-in-out infinite;
+}
+
+@keyframes pulseCorner {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 229, 255, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 229, 255, 0);
+  }
+}
+
+/* =====================
+   BOTTOM CTA
+   ===================== */
+
+.industries-cta {
+  text-align: center;
+  padding: clamp(40px, 6vh, 60px) clamp(20px, 4vw, 40px);
+  background: var(--ind-card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--ind-glass-border);
+  border-radius: 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.industries-cta p {
+  margin: 0 0 24px 0;
+  color: var(--ind-text-muted);
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.6;
+}
+
+.contact-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 40px;
+  background: linear-gradient(135deg, var(--ind-primary), var(--ind-secondary));
+  color: #000;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow:
+    0 8px 24px rgba(0, 229, 255, 0.3),
+    0 4px 12px rgba(0, 114, 255, 0.2);
+}
+
+.contact-cta:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow:
+    0 12px 36px rgba(0, 229, 255, 0.4),
+    0 6px 18px rgba(0, 114, 255, 0.3);
+}
+
+.contact-cta .cta-arrow {
+  transition: transform 0.3s ease;
+}
+
+.contact-cta:hover .cta-arrow {
+  transform: translateX(6px);
+}
+
+/* =====================
+   RESPONSIVE DESIGN
+   ===================== */
+
+@media (max-width: 1200px) {
+  .industries-bento-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .card-1 {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+  }
+
+  .card-2 {
+    grid-column: 3 / 5;
+    grid-row: 1 / 2;
+  }
+
+  .card-3 {
+    grid-column: 3 / 5;
+    grid-row: 2 / 3;
+  }
+
+  .card-4 {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+  }
+
+  .card-5 {
+    grid-column: 3 / 5;
+    grid-row: 3 / 4;
+  }
+
+  .card-6 {
+    grid-column: 1 / 5;
+    grid-row: 4 / 5;
+  }
+}
+
+@media (max-width: 900px) {
+  .industries-bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card-1,
+  .card-2,
+  .card-3,
+  .card-4,
+  .card-5,
+  .card-6 {
+    grid-column: span 2;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .enterprise-industries-section {
+    padding: 60px 20px;
+  }
+
+  .industries-bento-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .card-1,
+  .card-2,
+  .card-3,
+  .card-4,
+  .card-5,
+  .card-6 {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .enterprise-industry-card {
+    padding: 20px;
+  }
+
+  .filter-pills {
+    gap: 8px;
+  }
+
+  .filter-pill {
+    padding: 10px 18px;
+    font-size: 0.85rem;
+  }
+
+  .stats-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .stat-divider {
+    width: 100%;
+    height: 1px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .industries-orb {
+    display: none;
+  }
+}
+
+/* Performance Optimizations */
+.enterprise-industry-card,
+.filter-pill,
+.contact-cta {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}

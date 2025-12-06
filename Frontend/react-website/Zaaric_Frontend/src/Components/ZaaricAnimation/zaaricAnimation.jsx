@@ -29,7 +29,7 @@ const ZaaricAnimation = () => {
             y: 0,
             rotateX: 0,
             scale: 1,
-            color: "#00ffcc", // Initial color
+            color: "#008cff", // Initial color
             transition: {
                 delay: i * 0.15,
                 duration: 0.75,
