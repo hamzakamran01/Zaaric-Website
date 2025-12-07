@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "../Components/Navbar/navbar.jsx";
-import Home from "../pages/Home/home.jsx";
+import Home from "../Pages/Home/home.jsx";
 import LoadingPage from "../Components/Loading/loading.jsx";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import './App.css';
