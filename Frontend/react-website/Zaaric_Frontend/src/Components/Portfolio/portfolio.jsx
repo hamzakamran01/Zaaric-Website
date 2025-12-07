@@ -1,5 +1,5 @@
 import React from "react";
-import "./Portfolio.css"; // Import the CSS file for styling
+import "./portfolio.css"; // Import the CSS file for styling
 
 const Portfolio = () => {
     return (
