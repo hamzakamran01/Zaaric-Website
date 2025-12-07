@@ -4,7 +4,7 @@ import HeroParticles from "../particleBackground";
 
 const RevolutionaryHero = ({ heroRef }) => {
     const [activeHeadline, setActiveHeadline] = useState(0);
-    const [metrics, setMetrics] = useState({ clients: 0, reduction: 0, projects: 0 });
+    const [metrics, setMetrics] = useState({ performance: 0, reduction: 0, uptime: 0 });
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
     const imageOverlayRef = useRef(null);
 
@@ -17,7 +17,7 @@ const RevolutionaryHero = ({ heroRef }) => {
 
     const staticHighlight = "with AI Automation";
 
-    const targets = { clients: 50, reduction: 30, projects: 100 };
+    const targets = { performance: 95, reduction: 30, uptime: 98.7 };
 
     // Rotating headlines
     useEffect(() => {
@@ -38,9 +38,9 @@ const RevolutionaryHero = ({ heroRef }) => {
             currentStep++;
             const progress = currentStep / steps;
             setMetrics({
-                clients: Math.floor(targets.clients * progress),
+                performance: Math.floor(targets.performance * progress),
                 reduction: Math.floor(targets.reduction * progress),
-                projects: Math.floor(targets.projects * progress)
+                uptime: Math.round(targets.uptime * progress * 10) / 10
             });
             if (currentStep >= steps) {
                 setMetrics(targets);
@@ -191,15 +191,15 @@ const RevolutionaryHero = ({ heroRef }) => {
                                 <path d="M4 10h12m0 0l-5-5m5 5l-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
-                        <button className="magnetic-cta secondary-cta">
+                        <a href="#case-study" className="magnetic-cta secondary-cta">
                             <span>View Case Studies</span>
-                        </button>
+                        </a>
                     </div>
 
                     <div className="trust-metrics">
                         <div className="metric-item">
-                            <div className="metric-value">{metrics.clients}+</div>
-                            <div className="metric-label">Enterprise Clients</div>
+                            <div className="metric-value">{metrics.performance}%</div>
+                            <div className="metric-label">Project Success Rate</div>
                         </div>
                         <div className="metric-divider"></div>
                         <div className="metric-item">
@@ -208,8 +208,8 @@ const RevolutionaryHero = ({ heroRef }) => {
                         </div>
                         <div className="metric-divider"></div>
                         <div className="metric-item">
-                            <div className="metric-value">{metrics.projects}+</div>
-                            <div className="metric-label">Projects Delivered</div>
+                            <div className="metric-value">{metrics.uptime}%</div>
+                            <div className="metric-label">Uptime SLA</div>
                         </div>
                     </div>
                 </div>
@@ -286,11 +286,11 @@ const RevolutionaryHero = ({ heroRef }) => {
                                                     <div className="area-line"></div>
                                                 </div>
                                                 <div className="chart-bars-group">
-                                                    <div className="bar-premium" style={{height: '45%'}}></div>
-                                                    <div className="bar-premium" style={{height: '70%'}}></div>
-                                                    <div className="bar-premium highlight" style={{height: '95%'}}></div>
-                                                    <div className="bar-premium" style={{height: '60%'}}></div>
-                                                    <div className="bar-premium" style={{height: '85%'}}></div>
+                                                    <div className="bar-premium" style={{ height: '45%' }}></div>
+                                                    <div className="bar-premium" style={{ height: '70%' }}></div>
+                                                    <div className="bar-premium highlight" style={{ height: '95%' }}></div>
+                                                    <div className="bar-premium" style={{ height: '60%' }}></div>
+                                                    <div className="bar-premium" style={{ height: '85%' }}></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -322,7 +322,7 @@ const RevolutionaryHero = ({ heroRef }) => {
                                                 <div className="stat-value-xl">$847K</div>
                                                 <div className="stat-label-mini">Monthly Revenue</div>
                                                 <div className="progress-bar-mini">
-                                                    <div className="progress-fill" style={{width: '78%'}}></div>
+                                                    <div className="progress-fill" style={{ width: '78%' }}></div>
                                                 </div>
                                             </div>
                                             <div className="stat-box-large">

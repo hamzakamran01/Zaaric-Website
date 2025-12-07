@@ -1,4 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
+import {
+    Bot,
+    Zap,
+    BarChart3,
+    Shield,
+    MessageCircle,
+    RefreshCw
+} from 'lucide-react';
 import './AICapabilities.css';
 
 const AICapabilities = () => {
@@ -7,7 +15,7 @@ const AICapabilities = () => {
 
     const capabilities = [
         {
-            icon: '🤖',
+            icon: <Bot className="capability-lucide-icon" />,
             title: 'Agentic AI Systems',
             description: 'Autonomous agents that adapt, learn, and execute complex workflows without human intervention',
             features: [
@@ -18,7 +26,7 @@ const AICapabilities = () => {
             gradient: 'linear-gradient(135deg, #00e6ff, #0072ff)'
         },
         {
-            icon: '⚡',
+            icon: <Zap className="capability-lucide-icon" />,
             title: 'Process Automation',
             description: 'End-to-end automation of repetitive tasks, reducing manual effort by up to 90%',
             features: [
@@ -29,7 +37,7 @@ const AICapabilities = () => {
             gradient: 'linear-gradient(135deg, #0072ff, #8a2be2)'
         },
         {
-            icon: '📊',
+            icon: <BarChart3 className="capability-lucide-icon" />,
             title: 'Predictive Analytics',
             description: 'Advanced ML models delivering actionable insights from your enterprise data',
             features: [
@@ -40,7 +48,7 @@ const AICapabilities = () => {
             gradient: 'linear-gradient(135deg, #8a2be2, #00e6ff)'
         },
         {
-            icon: '🔒',
+            icon: <Shield className="capability-lucide-icon" />,
             title: 'Enterprise Security',
             description: 'Bank-grade security with SOC 2 compliance and end-to-end encryption',
             features: [
@@ -51,7 +59,7 @@ const AICapabilities = () => {
             gradient: 'linear-gradient(135deg, #00e6ff, #00ff88)'
         },
         {
-            icon: '💬',
+            icon: <MessageCircle className="capability-lucide-icon" />,
             title: 'Conversational AI',
             description: 'Next-gen chatbots and virtual assistants that understand context and deliver human-like interactions',
             features: [
@@ -62,7 +70,7 @@ const AICapabilities = () => {
             gradient: 'linear-gradient(135deg, #00ff88, #00e6ff)'
         },
         {
-            icon: '🔄',
+            icon: <RefreshCw className="capability-lucide-icon" />,
             title: 'System Integration',
             description: 'Seamlessly connect your existing tools, databases, and platforms into unified AI workflows',
             features: [
@@ -129,7 +137,7 @@ const AICapabilities = () => {
                                         className="capability-icon"
                                         style={{ background: capability.gradient }}
                                     >
-                                        <span>{capability.icon}</span>
+                                        {capability.icon}
                                     </div>
                                     <div className="capability-icon-glow"></div>
                                 </div>

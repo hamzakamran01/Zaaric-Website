@@ -39,6 +39,8 @@ const EnterpriseIndustries = lazy(() =>
 const Services = lazy(() => import("../../Components/Services/services.jsx"));
 const TrustIndicators = lazy(() => import("../../Components/TrustIndicators/TrustIndicators.jsx"));
 const AICapabilities = lazy(() => import("../../Components/AICapabilities/AICapabilities.jsx"));
+const FeaturedCaseStudy = lazy(() => import("../../Components/FeaturedCaseStudy/FeaturedCaseStudy.jsx"));
+const IdeaToMVP = lazy(() => import("../../Components/IdeaToMVP/IdeaToMVP.jsx"));
 
 // ✅ Images
 import robotImage from "/Assets/hero_robot3.webp";
@@ -386,14 +388,20 @@ const Home = () => {
     };
   }, []);
 
-  // Global handler: any button click scrolls to contact (excluding form submits)
+  // Global handler: any button click scrolls to contact (excluding form submits and navbar)
   useEffect(() => {
     const handleGlobalButtonClick = (e) => {
       const targetEl = e.target.closest('button, [role="button"], .cta-btn, .cta-button, .apply');
       if (!targetEl) return;
+
+      // Skip if it's inside the navbar (hamburger menu, mobile menu, nav links)
+      const isNavbarElement = targetEl.closest('.navbar, .navbar-toggle, .mobile-menu, .navbar-links');
+      if (isNavbarElement) return;
+
       // Skip if it's a submit button or inside a form (e.g., contact form submit)
       const isSubmit = targetEl.getAttribute('type') === 'submit' || targetEl.closest('form');
       if (isSubmit) return;
+
       e.preventDefault();
       scrollToSection(contactRef);
     };
@@ -586,6 +594,11 @@ const Home = () => {
         <EnterpriseIndustries ref={industriesRef} />
       </Suspense>
 
+      {/* Idea to MVP Buffer Section */}
+      <Suspense fallback={<div className="loading">Loading...</div>}>
+        <IdeaToMVP />
+      </Suspense>
+
       {/* Team – timeline with scroll-activated dots and dynamic node navigation with sleek line */}
       <section className="team" ref={teamRef} id="team">
         <h2>Our Leadership</h2>
@@ -735,6 +748,11 @@ const Home = () => {
         <TrustIndicators />
       </Suspense>
 
+      {/* Featured Case Study - United BY Art */}
+      <Suspense fallback={<div className="loading">Loading...</div>}>
+        <FeaturedCaseStudy />
+      </Suspense>
+
       {/* AI Capabilities Section */}
       <Suspense fallback={<div className="loading">Loading...</div>}>
         <AICapabilities />
@@ -743,45 +761,86 @@ const Home = () => {
       {/* AI Stats Section */}
       <AIStats />
 
-      {/* Careers – enterprise recruiting block */}
-      <section className="careers" ref={careersRef} id="careers">
-        <h2>Careers</h2>
-        <p className="section-subtitle">Join a multidisciplinary team shipping world-class products.</p>
+      {/* Careers – Enterprise Recruiting Block */}
+      <section className="careers-section" ref={careersRef} id="careers">
+        <div className="careers-container">
+          {/* Header */}
+          <div className="careers-header">
+            <span className="careers-badge">Join Our Team</span>
+            <h2 className="careers-title">
+              Build the <span className="gradient-text">Future</span> With Us
+            </h2>
+            <p className="careers-subtitle">
+              Join a multidisciplinary team shipping world-class AI solutions globally.
+            </p>
+          </div>
 
-        <div className="careers-wrap">
-          <div className="job-board reveal" {...setDelay(0)}>
-            <div className="job">
-              <div>
-                <h5>Senior Agentic AI Developer</h5>
-                <div className="meta">Remote • Pakistan/US overlap • Full-time</div>
+          {/* Main Grid */}
+          <div className="careers-grid">
+            {/* Job Cards */}
+            <div className="jobs-container">
+              <div className="job-card">
+                <div className="job-header">
+                  <div className="job-icon">🤖</div>
+                  <div className="job-badge">Full-time</div>
+                </div>
+                <h4 className="job-title">Senior Agentic AI Developer</h4>
+                <p className="job-meta">Remote • Pakistan/US overlap</p>
+                <ul className="job-requirements">
+                  <li>3+ years AI/ML experience</li>
+                  <li>Python, LangChain, GPT APIs</li>
+                </ul>
+                <button className="apply-btn" onClick={() => scrollToSection(contactRef)}>
+                  Apply Now
+                </button>
               </div>
-              <button className="apply" onClick={() => scrollToSection(contactRef)}>Apply</button>
+
+              <div className="job-card">
+                <div className="job-header">
+                  <div className="job-icon">🎨</div>
+                  <div className="job-badge">Contract/FT</div>
+                </div>
+                <h4 className="job-title">Senior UI/UX Designer</h4>
+                <p className="job-meta">Remote • Portfolio required</p>
+                <ul className="job-requirements">
+                  <li>4+ years product design</li>
+                  <li>Figma, Design Systems</li>
+                </ul>
+                <button className="apply-btn" onClick={() => scrollToSection(contactRef)}>
+                  Apply Now
+                </button>
+              </div>
+
+              <div className="job-card">
+                <div className="job-header">
+                  <div className="job-icon">📈</div>
+                  <div className="job-badge">Entry/Mid</div>
+                </div>
+                <h4 className="job-title">Business Development Associate</h4>
+                <p className="job-meta">Remote • Commission + Base</p>
+                <ul className="job-requirements">
+                  <li>Sales/BD experience</li>
+                  <li>Excellent communication</li>
+                </ul>
+                <button className="apply-btn" onClick={() => scrollToSection(contactRef)}>
+                  Apply Now
+                </button>
+              </div>
             </div>
-            <div className="job">
-              <div>
-                <h5>Senior UIUX Designer </h5>
-                <div className="meta">Remote • Portfolio required • Contract/FT</div>
-              </div>
-              <button className="apply" onClick={() => scrollToSection(contactRef)}>Apply</button>
-            </div>
-            <div className="job">
-              <div>
-                <h5>Business Development Associate</h5>
-                <div className="meta">Remote • Commission + Base • Entry/Mid</div>
-              </div>
-              <button className="apply" onClick={() => scrollToSection(contactRef)}>Apply</button>
+
+            {/* Image Side */}
+            <div className="careers-image">
+              <img src="/Assets/techGuy.png" alt="Join Zaaric Team" />
+              <div className="image-glow"></div>
             </div>
           </div>
 
-          <div className="careers-side">
-            <div className='careerImg'>
-              <img src="/Assets/techGuy.png" width='500' height='700' ></img>
-            </div>
+          {/* CTA */}
+          <div className="careers-footer">
+            <p className="careers-note">
+              Don't see your role? <strong>Send your portfolio</strong> — we hire excellence.
+            </p>
           </div>
-        </div>
-
-        <div className="careers-cta">
-          <span className="careers-note">Don’t see your role? Send your portfolio — we hire excellence.</span>
         </div>
       </section>
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Globe, Rocket, Handshake } from 'lucide-react';
 import './TrustIndicators.css';
 
 const TrustIndicators = () => {
@@ -25,17 +26,17 @@ const TrustIndicators = () => {
 
     const missionPillars = [
         {
-            icon: '🌍',
+            icon: <Globe className="trust-lucide-icon" />,
             title: 'Global Scale',
             description: 'Build AI infrastructure that powers enterprises across continents, enabling seamless operations at unprecedented scale'
         },
         {
-            icon: '🚀',
+            icon: <Rocket className="trust-lucide-icon" />,
             title: 'Innovation Leadership',
             description: 'Pioneer breakthrough AI technologies that redefine industry standards and create new possibilities for automation'
         },
         {
-            icon: '🤝',
+            icon: <Handshake className="trust-lucide-icon" />,
             title: 'Partnership Excellence',
             description: 'Forge long-term strategic partnerships with industry leaders, co-creating solutions that drive mutual growth'
         }
@@ -48,7 +49,7 @@ const TrustIndicators = () => {
                 <div className="trust-header">
                     <span className="trust-badge">Our Vision for the Future</span>
                     <h2 className="trust-title">
-                        Scaling AI Innovation Globally
+                        Scaling <span className="gradient-text">AI Innovation</span> Globally
                     </h2>
                     <p className="trust-subtitle">
                         Our mission is to democratize enterprise AI, making cutting-edge automation accessible to organizations worldwide while maintaining the highest standards of excellence

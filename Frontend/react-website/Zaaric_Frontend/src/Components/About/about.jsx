@@ -1,37 +1,96 @@
-import React from 'react';
-import './about.css'
+import React, { useRef, useEffect } from 'react';
+import { Target, Lightbulb, Users, ArrowRight } from 'lucide-react';
+import './about.css';
 
 const About = () => {
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            },
+            { threshold: 0.1 }
+        );
+
+        const elements = document.querySelectorAll(".philosophy-animate");
+        elements.forEach((el) => observer.observe(el));
+
+        return () => observer.disconnect();
+    }, []);
+
+    const pillars = [
+        {
+            icon: <Target size={28} />,
+            title: "Client-First",
+            desc: "Every solution begins with understanding your unique challenges and goals."
+        },
+        {
+            icon: <Lightbulb size={28} />,
+            title: "Purposeful Innovation",
+            desc: "Technology that solves real problems, not innovation for its own sake."
+        },
+        {
+            icon: <Users size={28} />,
+            title: "Collaborative Excellence",
+            desc: "Transparency and partnership at every step of the journey."
+        }
+    ];
 
     return (
-        
-        <div>
-
-        < section className = "about" >
-                <div className="about-content">
-                    <h2>OUR PHILOSOPHY</h2>
-                    <p>
-                    At Zaaric, we believe that ideas are the seeds of transformation. Our philosophy is grounded in the principle that technology, when combined with strategic vision, has the power to convert abstract concepts into market-ready solutions that drive meaningful impact.
-
-                    We embrace a client-first mindset, where understanding the unique challenges and goals of each partner is paramount. Every project is approached with precision, creativity, and a commitment to excellence, ensuring that solutions are not only functional but also scalable, sustainable, and forward-looking.
+        <section className="philosophy-section" ref={sectionRef}>
+            <div className="philosophy-container">
+                {/* Header */}
+                <div className="philosophy-header philosophy-animate">
+                    <span className="philosophy-badge">Our Philosophy</span>
+                    <h2 className="philosophy-title">
+                        Ideas to <span className="gradient-text">Impact</span>
+                    </h2>
+                    <p className="philosophy-subtitle">
+                        We transform abstract concepts into market-ready solutions that drive meaningful change.
                     </p>
-                     <p>
-                     Innovation at Zaaric is purposeful. We don’t pursue technology for its own sake; we leverage it to solve real-world problems, streamline processes, and unlock new opportunities. Collaboration, transparency, and ethical responsibility guide every decision, reflecting our unwavering dedication to creating value that endures.
+                </div>
 
-                     In essence, Zaaric exists to bridge the gap between vision and execution, transforming ambitious ideas into tangible outcomes while setting new standards in technology-driven enterprise solutions.
-                     </p>
-                     <div className="founder-section">
-                     <h4> Founder and CEO</h4>
-                     <h3> Hamza Kamran </h3>
-                     </div>
-                   
+                {/* Main Content Grid */}
+                <div className="philosophy-grid">
+                    {/* Left - Vision Statement */}
+                    <div className="vision-card philosophy-animate">
+                        <div className="vision-glow"></div>
+                        <blockquote className="vision-quote">
+                            "Technology, when combined with strategic vision, has the power to bridge the gap between ambition and execution."
+                        </blockquote>
+                        <div className="vision-author">
+                            <div className="author-info">
+                                <span className="author-name">Hamza Kamran</span>
+                                <span className="author-title">Founder & CEO of Zaaric</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right - Pillars */}
+                    <div className="pillars-container">
+                        {pillars.map((pillar, index) => (
+                            <div
+                                key={index}
+                                className="pillar-card philosophy-animate"
+                                style={{ transitionDelay: `${index * 0.1}s` }}
+                            >
+                                <div className="pillar-icon">{pillar.icon}</div>
+                                <div className="pillar-content">
+                                    <h4>{pillar.title}</h4>
+                                    <p>{pillar.desc}</p>
+                                </div>
+                                <ArrowRight className="pillar-arrow" size={18} />
+                            </div>
+                        ))}
+                    </div>
                 </div>
-                <div className="about-image">
-                    <img src="/Assets/teamwork1.jpg" alt="Our Team" />
-                </div>
-        </section >
-           
-        </div>
+            </div>
+        </section>
     );
 };
 

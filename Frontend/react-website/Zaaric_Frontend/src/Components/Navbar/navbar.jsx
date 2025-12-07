@@ -36,13 +36,12 @@ const Navbar = () => {
     setIsOpen(!isOpen);
     document.body.style.overflow = isOpen ? "auto" : "hidden";
   };
-  
+
 
   return (
     <header
-      className={`navbar ${scrolled ? "scrolled" : ""} ${
-        hidden ? "hidden" : ""
-      }`}
+      className={`navbar ${scrolled ? "scrolled" : ""} ${hidden ? "hidden" : ""
+        }`}
     >
       <div className="navbar-container">
         {/* Logo */}
@@ -62,7 +61,7 @@ const Navbar = () => {
             { name: "Services", id: "services" },
             { name: "Industries", id: "industries" },
             { name: "Careers", id: "careers" },
-            { name: "About", id: "about" },
+            { name: "Case Study", id: "case-study" },
             { name: "Contact", id: "contact" },
           ].map((link) => (
             <Link
@@ -77,10 +76,22 @@ const Navbar = () => {
         </nav>
 
         {/* Mobile Menu Toggle */}
-        <button
+        <div
           className="navbar-toggle"
-          onClick={toggleMenu}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMenu();
+          }}
+          role="button"
+          tabIndex={0}
           aria-label="Toggle Menu"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              toggleMenu();
+            }
+          }}
         >
           {isOpen ? (
             <svg
@@ -103,7 +114,7 @@ const Navbar = () => {
               <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
             </svg>
           )}
-        </button>
+        </div>
 
         {/* Mobile Drawer */}
         <nav className={`mobile-menu ${isOpen ? "open" : ""}`}>
@@ -113,7 +124,7 @@ const Navbar = () => {
             { name: "Services", id: "services" },
             { name: "Industries", id: "industries" },
             { name: "Careers", id: "careers" },
-            { name: "About", id: "about" },
+            { name: "Case Study", id: "case-study" },
             { name: "Contact", id: "contact" },
           ].map((link) => (
             <Link
