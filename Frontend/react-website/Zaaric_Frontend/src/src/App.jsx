@@ -53,7 +53,7 @@ function App() {
               content="Zaaric, Zaaric AI, Agentic AI, Enterprise AI, AI Agents, Software Development, Digital Transformation, Tech Agency, Business Automation, Hamza Kamran, Umair Khan Shinwari"
             />
             <meta name="author" content="Zaaric Team" />
-            <link rel="canonical" href="https://zaaric.com/" />
+            <link rel="canonical" href="https://zaaric-ai.com/" />
 
             {/* Open Graph / Facebook */}
             <meta property="og:type" content="website" />
@@ -63,7 +63,7 @@ function App() {
               property="og:description"
               content="Zaaric revolutionizes enterprises with cutting-edge Agentic AI solutions, bespoke software development, and digital transformation strategies. Partner with us to define your digital excellence."
             />
-            <meta property="og:image" content="https://zaaric-ai.com/assets/meta-image.jpg" />
+            <meta property="og:image" content="https://zaaric-ai.com/Assets/new_favicon.jpeg" />
             <meta property="og:site_name" content="Zaaric" />
 
             {/* Twitter */}
@@ -74,7 +74,7 @@ function App() {
               property="twitter:description"
               content="Zaaric revolutionizes enterprises with cutting-edge Agentic AI solutions, bespoke software development, and digital transformation strategies. Partner with us to define your digital excellence."
             />
-            <meta property="twitter:image" content="https://zaaric-ai.com/assets/meta-image.jpg" />
+            <meta property="twitter:image" content="https://zaaric-ai.com/Assets/new_favicon.jpeg" />
 
             {/* Structured Data (JSON-LD) - Enterprise Knowledge Graph */}
             <script type="application/ld+json">
@@ -89,7 +89,7 @@ function App() {
                       "url": "https://zaaric-ai.com",
                       "logo": {
                         "@type": "ImageObject",
-                        "url": "https://zaaric-ai.com/Assets/zaaric_logo.png",
+                        "url": "https://zaaric-ai.com/Assets/new_favicon.jpeg",
                         "width": 512,
                         "height": 512
                       },
