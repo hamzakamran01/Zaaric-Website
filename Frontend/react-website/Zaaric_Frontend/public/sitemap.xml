@@ -10,20 +10,20 @@
     <!-- Brand Identity (Top Priority) -->
     <image:image>
       <image:loc>https://zaaric-ai.com/Assets/new_favicon.jpeg</image:loc>
-      <image:title>Zaaric Official Logo & Brand Identity</image:title>
-      <image:caption>Zaaric - Defining Your Digital Excellence. Premium Agentic AI & Enterprise Solutions.</image:caption>
+      <image:title>Zaaric Official Logo &amp; Brand Identity</image:title>
+      <image:caption>Zaaric - Defining Your Digital Excellence. Premium Agentic AI &amp; Enterprise Solutions.</image:caption>
     </image:image>
 
     <!-- Leadership Team -->
     <image:image>
       <image:loc>https://zaaric-ai.com/Assets/CEO.png</image:loc>
-      <image:title>Hamza Kamran - Founder & CEO of Zaaric</image:title>
-      <image:caption>Hamza Kamran, Founder & CEO, leading Zaaric's vision in Agentic AI and Enterprise Solutions.</image:caption>
+      <image:title>Hamza Kamran - Founder &amp; CEO of Zaaric</image:title>
+      <image:caption>Hamza Kamran, Founder &amp; CEO, leading Zaaric's vision in Agentic AI and Enterprise Solutions.</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://zaaric-ai.com/Assets/CTO.png</image:loc>
-      <image:title>Umair Khan Shinwari - Co-Founder & CTO of Zaaric</image:title>
-      <image:caption>Umair Khan Shinwari, Co-Founder & CTO, architecting scalable AI systems at Zaaric.</image:caption>
+      <image:title>Umair Khan Shinwari - Co-Founder &amp; CTO of Zaaric</image:title>
+      <image:caption>Umair Khan Shinwari, Co-Founder &amp; CTO, architecting scalable AI systems at Zaaric.</image:caption>
     </image:image>
   </url>
 </urlset>
