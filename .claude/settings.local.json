@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:www.anthropic.com)",
+      "WebFetch(domain:openai.com)",
+      "WebFetch(domain:www.datarobot.com)",
+      "WebFetch(domain:scale.com)",
+      "WebFetch(domain:www.openai.com)",
+      "WebFetch(domain:stripe.com)",
+      "WebFetch(domain:vercel.com)",
+      "WebFetch(domain:linear.app)",
+      "WebFetch(domain:www.framer.com)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
