@@ -1,96 +1,61 @@
-import React, { useEffect, useRef, useState } from 'react';
+// AI Capabilities — Cinematic Intelligence Matrix
+import React, { useEffect, useRef } from 'react';
 import {
-    Bot,
+    Cpu,
+    Network,
     Zap,
-    BarChart3,
-    Shield,
-    MessageCircle,
-    RefreshCw
+    MessageSquare,
+    ArrowRight
 } from 'lucide-react';
 import './AICapabilities.css';
 
+const capabilities = [
+    {
+        icon: Network,
+        title: "Agentic AI Systems",
+        // Abstract Mesh / Neural Network
+        image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80&auto=format&fit=crop",
+        description: "Autonomous multi-agent architectures that orchestrate complex workflows and execute decisions without human intervention.",
+        color: "#00e6ff"
+    },
+    {
+        icon: Zap,
+        title: "Intelligent Automation",
+        // Dark Circuit / Data Flow
+        image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80&auto=format&fit=crop",
+        description: "End-to-end automation connecting legacy systems and APIs into self-healing operational infrastructure.",
+        color: "#8a2be2"
+    },
+    {
+        icon: Cpu,
+        title: "Predictive Intelligence",
+        // Analytics / Future Data
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop",
+        description: "Machine learning models delivering actionable forecasting across demand, risk, and behavior at scale.",
+        color: "#00ff9d"
+    },
+    {
+        icon: MessageSquare,
+        title: "Conversational AI",
+        // Abstract Sound Wave / Voice
+        image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80&auto=format&fit=crop",
+        description: "Context-aware systems engineered for high-fidelity engagement and multi-language enterprise communication.",
+        color: "#ff0055"
+    }
+];
+
 const AICapabilities = () => {
     const sectionRef = useRef(null);
-    const [activeCapability, setActiveCapability] = useState(0);
-
-    const capabilities = [
-        {
-            icon: <Bot className="capability-lucide-icon" />,
-            title: 'Agentic AI Systems',
-            description: 'Autonomous agents that adapt, learn, and execute complex workflows without human intervention',
-            features: [
-                'Multi-agent orchestration',
-                'Self-improving algorithms',
-                'Real-time decision making'
-            ],
-            gradient: 'linear-gradient(135deg, #00e6ff, #0072ff)'
-        },
-        {
-            icon: <Zap className="capability-lucide-icon" />,
-            title: 'Process Automation',
-            description: 'End-to-end automation of repetitive tasks, reducing manual effort by up to 90%',
-            features: [
-                'Workflow optimization',
-                'API integrations',
-                'Legacy system modernization'
-            ],
-            gradient: 'linear-gradient(135deg, #0072ff, #8a2be2)'
-        },
-        {
-            icon: <BarChart3 className="capability-lucide-icon" />,
-            title: 'Predictive Analytics',
-            description: 'Advanced ML models delivering actionable insights from your enterprise data',
-            features: [
-                'Demand forecasting',
-                'Risk assessment',
-                'Customer behavior prediction'
-            ],
-            gradient: 'linear-gradient(135deg, #8a2be2, #00e6ff)'
-        },
-        {
-            icon: <Shield className="capability-lucide-icon" />,
-            title: 'Enterprise Security',
-            description: 'Bank-grade security with SOC 2 compliance and end-to-end encryption',
-            features: [
-                'Zero-trust architecture',
-                'Compliance automation',
-                'Threat detection & response'
-            ],
-            gradient: 'linear-gradient(135deg, #00e6ff, #00ff88)'
-        },
-        {
-            icon: <MessageCircle className="capability-lucide-icon" />,
-            title: 'Conversational AI',
-            description: 'Next-gen chatbots and virtual assistants that understand context and deliver human-like interactions',
-            features: [
-                'Natural language processing',
-                'Multi-language support',
-                '24/7 customer engagement'
-            ],
-            gradient: 'linear-gradient(135deg, #00ff88, #00e6ff)'
-        },
-        {
-            icon: <RefreshCw className="capability-lucide-icon" />,
-            title: 'System Integration',
-            description: 'Seamlessly connect your existing tools, databases, and platforms into unified AI workflows',
-            features: [
-                'API-first architecture',
-                'Data pipeline automation',
-                'Cross-platform compatibility'
-            ],
-            gradient: 'linear-gradient(135deg, #8a2be2, #0072ff)'
-        }
-    ];
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
                 }
-            },
-            { threshold: 0.1 }
-        );
+            });
+        }, { threshold: 0.1 });
 
         if (sectionRef.current) {
             observer.observe(sectionRef.current);
@@ -99,80 +64,65 @@ const AICapabilities = () => {
         return () => observer.disconnect();
     }, []);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setActiveCapability((prev) => (prev + 1) % capabilities.length);
-        }, 5000);
-
-        return () => clearInterval(interval);
-    }, []);
-
     return (
-        <section className="ai-capabilities" ref={sectionRef}>
-            <div className="capabilities-bg-gradient"></div>
-            <div className="capabilities-container">
-                {/* Section Header */}
-                <div className="capabilities-header">
-                    <span className="capabilities-badge">Enterprise AI Platform</span>
-                    <h2 className="capabilities-title">
-                        The Full Spectrum of AI Innovation
-                    </h2>
-                    <p className="capabilities-subtitle">
-                        Comprehensive AI capabilities designed for mission-critical enterprise operations
+        <section className="aic-section" ref={sectionRef} id="ai-capabilities">
+            <div className="aic-container">
+                {/* Header */}
+                <header className="aic-header">
+                    <span className="aic-label">Intelligence Matrix</span>
+                    <h2 className="aic-title">The Full Spectrum of AI Innovation</h2>
+                    <p className="aic-subtitle">
+                        Immersive intelligence systems designed for the next era of enterprise operations.
                     </p>
-                </div>
+                    <div className="aic-header-rule"></div>
+                </header>
 
-                {/* Capabilities Grid */}
-                <div className="capabilities-grid">
-                    {capabilities.map((capability, index) => (
-                        <div
-                            key={index}
-                            className={`capability-card ${index === activeCapability ? 'active' : ''}`}
-                            onClick={() => setActiveCapability(index)}
-                            data-index={index}
-                        >
-                            <div className="capability-card-inner">
-                                <div className="capability-icon-wrapper">
-                                    <div
-                                        className="capability-icon"
-                                        style={{ background: capability.gradient }}
-                                    >
-                                        {capability.icon}
-                                    </div>
-                                    <div className="capability-icon-glow"></div>
+                {/* Cinematic Matrix Grid */}
+                <div className="aic-matrix">
+                    {capabilities.map((cap, idx) => {
+                        const Icon = cap.icon;
+                        return (
+                            <div
+                                key={idx}
+                                className="aic-card"
+                                style={{ '--accent-color': cap.color }}
+                            >
+                                {/* Background Image Layer */}
+                                <div className="aic-card-bg">
+                                    <img src={cap.image} alt={cap.title} loading="lazy" />
+                                    <div className="aic-card-overlay"></div>
                                 </div>
 
-                                <h3 className="capability-title">{capability.title}</h3>
-                                <p className="capability-description">{capability.description}</p>
-
-                                <div className="capability-features">
-                                    {capability.features.map((feature, i) => (
-                                        <div key={i} className="capability-feature">
-                                            <span className="feature-check">✓</span>
-                                            <span className="feature-text">{feature}</span>
+                                {/* Content Layer */}
+                                <div className="aic-card-content">
+                                    <div className="aic-content-top">
+                                        <div className="aic-icon-box">
+                                            <Icon size={28} strokeWidth={1.5} />
                                         </div>
-                                    ))}
+                                    </div>
+
+                                    <div className="aic-content-bottom">
+                                        <h3 className="aic-card-title">{cap.title}</h3>
+                                        <p className="aic-card-desc">{cap.description}</p>
+
+                                        <div className="aic-card-arrow">
+                                            <ArrowRight size={20} strokeWidth={2} />
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div className="capability-card-border"></div>
+                                {/* Hover Border Glow */}
+                                <div className="aic-card-border"></div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
 
-                {/* CTA Section */}
-                <div className="capabilities-cta">
-                    <div className="cta-content">
-                        <h3 className="cta-title">Ready to Transform Your Operations?</h3>
-                        <p className="cta-description">
-                            Schedule a consultation to discover how our AI solutions can deliver measurable ROI
-                        </p>
-                    </div>
-                    <button className="cta-button">
-                        <span>Schedule Strategy Call</span>
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M4 10h12m0 0l-5-5m5 5l-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                {/* Bottom CTA */}
+                <div className="aic-bottom">
+                    <button className="aic-cta-btn">
+                        <span>Initialize Transformation</span>
+                        <div className="aic-btn-glow"></div>
                     </button>
                 </div>
             </div>

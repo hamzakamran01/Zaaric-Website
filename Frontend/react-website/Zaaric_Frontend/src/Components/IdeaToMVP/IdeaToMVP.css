@@ -4,13 +4,13 @@
 
 .idea-to-mvp-section {
     position: relative;
-    min-height: 600px;
+    min-height: 700px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
     overflow: hidden;
-    padding: 120px 40px;
+    padding: 120px 40px 240px;
     margin: 100px 0;
 }
 

@@ -1,277 +1,154 @@
-import React, { useEffect, useRef, useState } from "react";
+// Enterprise Industries — Corporate Authority Grade
+import React, { useEffect, useRef } from "react";
 import {
-  Briefcase,
   ShoppingCart,
+  Briefcase,
   Stethoscope,
   CreditCard,
   GraduationCap,
   Film,
-  TrendingUp,
-  Zap,
-  CheckCircle2
+  ArrowRight,
 } from "lucide-react";
 import "./EnterpriseIndustries.css";
 
+const industries = [
+  {
+    icon: ShoppingCart,
+    title: "E-Commerce & Retail",
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80&auto=format&fit=crop",
+    desc: "Scalable commerce platforms with intelligent product discovery and global logistics orchestration.",
+    capabilities: ["Headless Storefronts", "Payment Systems", "Supply Chain"],
+  },
+  {
+    icon: Briefcase,
+    title: "SaaS & Enterprise Platforms",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop",
+    desc: "Multi-tenant architectures with usage-based billing, analytics, and infrastructure automation.",
+    capabilities: ["Platform Architecture", "Billing Systems", "Analytics"],
+  },
+  {
+    icon: Stethoscope,
+    title: "Healthcare & Life Sciences",
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80&auto=format&fit=crop",
+    desc: "HIPAA-compliant systems for clinical workflows, patient engagement, and secure health data exchange.",
+    capabilities: ["Regulatory Compliance", "Clinical Workflows", "Data Privacy"],
+  },
+  {
+    icon: CreditCard,
+    title: "Fintech & Banking",
+    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80&auto=format&fit=crop",
+    desc: "Real-time ledger systems, regulatory integrations, and institutional-grade financial dashboards.",
+    capabilities: ["KYC / AML", "Ledger Systems", "Risk Analytics"],
+  },
+  {
+    icon: GraduationCap,
+    title: "Education & EdTech",
+    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80&auto=format&fit=crop",
+    desc: "Learning management infrastructure with adaptive content delivery and engagement analytics.",
+    capabilities: ["LMS Platforms", "Content Delivery", "Engagement Analytics"],
+  },
+  {
+    icon: Film,
+    title: "Media & Entertainment",
+    image: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80&auto=format&fit=crop",
+    desc: "High-throughput content pipelines, streaming infrastructure, and editorial workflow automation.",
+    capabilities: ["Streaming Infrastructure", "Content Pipelines", "CMS"],
+  },
+];
+
 const EnterpriseIndustries = React.forwardRef((props, ref) => {
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [activeCard, setActiveCard] = useState(null);
   const gridRef = useRef(null);
 
-  const filters = [
-    { id: 'all', label: 'All Industries' },
-    { id: 'technology', label: 'Technology' },
-    { id: 'healthcare', label: 'Healthcare' },
-    { id: 'finance', label: 'Finance' },
-    { id: 'retail', label: 'Retail' }
-  ];
-
-  const industries = [
-    {
-      id: 1,
-      icon: <ShoppingCart className="industry-icon" />,
-      title: "E-Commerce & Retail",
-      category: 'retail',
-      desc: "We build scalable headless storefronts, intelligent product discovery, secure payments, and next-gen logistics integrations for global commerce.",
-      highlights: ["Headless Storefronts", "Stripe & PayPal", "OMS & Logistics"],
-      roi: "+50% Faster Deployment",
-      color: "#00e6ff",
-      techStack: "React, Next.js, Node.js",
-      deliveryTime: "8-12 weeks",
-      successRate: "98%",
-      featuredSolutions: [
-        "🎯 Personalized Shopping",
-        "📊 Real-time Analytics",
-        "🔒 Secure Payments"
-      ]
-    },
-    {
-      id: 2,
-      icon: <Briefcase className="industry-icon" />,
-      title: "SaaS & Platforms",
-      category: 'technology',
-      desc: "From multi-tenant SaaS applications to subscription billing and AI-driven analytics, we help launch, scale, and optimize enterprise platforms.",
-      highlights: ["Multi-Tenant Architecture", "Usage Billing", "Analytics"],
-      roi: "+40% Cost Reduction",
-      color: "#0072ff",
-      techStack: "Python, FastAPI, PostgreSQL",
-      deliveryTime: "10-14 weeks",
-      successRate: "96%"
-    },
-    {
-      id: 3,
-      icon: <Stethoscope className="industry-icon" />,
-      title: "Healthcare & Life Sciences",
-      category: 'healthcare',
-      desc: "HIPAA-compliant portals, patient engagement tools, and secure healthcare data solutions built to ensure privacy, compliance, and accessibility.",
-      highlights: ["HIPAA Compliance", "Data Privacy", "Clinical Workflows"],
-      roi: "+35% Efficiency Gains",
-      color: "#a855f7",
-      techStack: "MERN, HIPAA Cloud",
-      deliveryTime: "12-16 weeks",
-      successRate: "95%"
-    },
-    {
-      id: 4,
-      icon: <CreditCard className="industry-icon" />,
-      title: "Fintech & Banking",
-      category: 'finance',
-      desc: "Next-gen digital banking solutions, KYC/AML integrations, real-time ledger systems, and insightful dashboards to power financial innovation.",
-      highlights: ["KYC / AML", "Ledger Systems", "Financial Dashboards"],
-      roi: "+55% Transaction Speed",
-      color: "#10b981",
-      techStack: "Node.js, Redis, Blockchain",
-      deliveryTime: "14-18 weeks",
-      successRate: "99%"
-    },
-    {
-      id: 5,
-      icon: <GraduationCap className="industry-icon" />,
-      title: "Education & EdTech",
-      category: 'technology',
-      desc: "Learning management systems, gamified content delivery, and scalable engagement tools for the modern education ecosystem.",
-      highlights: ["LMS Platforms", "Content Delivery", "Student Engagement"],
-      roi: "+48% User Retention",
-      color: "#f59e0b",
-      techStack: "React, MongoDB, AWS",
-      deliveryTime: "10-12 weeks",
-      successRate: "97%"
-    },
-    {
-      id: 6,
-      icon: <Film className="industry-icon" />,
-      title: "Media & Entertainment",
-      category: 'technology',
-      desc: "Streaming platforms, digital editing pipelines, and content management systems built for global reach and performance.",
-      highlights: ["Streaming Tech", "Editing Pipelines", "CMS Solutions"],
-      roi: "+42% Content Velocity",
-      color: "#ec4899",
-      techStack: "Next.js, FFmpeg, CDN",
-      deliveryTime: "8-14 weeks",
-      successRate: "94%"
-    },
-  ];
-
-  const [filteredIndustries, setFilteredIndustries] = useState(industries);
-
-  // Filter industries
+  // Single scroll-reveal — no looping, no repeat
   useEffect(() => {
-    if (activeFilter === 'all') {
-      setFilteredIndustries(industries);
-    } else {
-      setFilteredIndustries(industries.filter(ind => ind.category === activeFilter));
-    }
-  }, [activeFilter]);
+    const cards = document.querySelectorAll(".ei-card");
+    if (!cards.length) return;
 
-  // Reveal animation with Intersection Observer
-  useEffect(() => {
-    const cards = document.querySelectorAll(".enterprise-industry-card");
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
+            entry.target.classList.add("ei-visible");
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.2, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
     );
+
     cards.forEach((card) => observer.observe(card));
     return () => observer.disconnect();
-  }, [filteredIndustries]);
-
-  // Card click removed - hover interactions only for stability
-  // No expansion state needed
+  }, []);
 
   return (
-    <section className="enterprise-industries-section" id="industries" ref={ref}>
-      {/* Gradient Orbs */}
-      <div className="industries-orb orb-left"></div>
-      <div className="industries-orb orb-right"></div>
-
-      <div className="industries-container">
-
-        {/* Header */}
-        <div className="industries-header">
-          <div className="header-badge">
-            <Zap size={16} />
-            <span>Industries We Transform</span>
-          </div>
-          <h2 className="section-title">
-            Empowering <span className="gradient-text">Global Industries</span>
-          </h2>
-          <p className="section-subtitle">
-            Tailored digital solutions that redefine experiences across sectors with
-            measurable ROI and enterprise-grade reliability.
+    <section className="ei-section" id="industries" ref={ref}>
+      <div className="ei-container">
+        {/* ── Header ── */}
+        <header className="ei-header">
+          <span className="ei-label">Industry Expertise</span>
+          <h2 className="ei-title">Industries We Serve</h2>
+          <p className="ei-subtitle">
+            Delivering measurable outcomes across regulated and high-growth sectors.
           </p>
-        </div>
+          <div className="ei-header-rule" />
+        </header>
 
-        {/* Filter Pills */}
-        <div className="filter-pills">
-          {filters.map(filter => (
-            <div
-              key={filter.id}
-              className={`filter-pill ${activeFilter === filter.id ? 'active' : ''}`}
-            >
-              {filter.label}
-              {activeFilter === filter.id && <CheckCircle2 size={14} />}
-            </div>
-          ))}
-        </div>
-
-        {/* Bento Grid */}
-        <div className="industries-bento-grid" ref={gridRef}>
-          {filteredIndustries.map((industry, idx) => (
-            <div
-              key={industry.id}
-              className={`enterprise-industry-card card-${idx + 1}`}
-              style={{ '--card-color': industry.color }}
-            >
-              {/* Card Glow Effect */}
-              <div className="card-glow"></div>
-
-              {/* Card Header */}
-              <div className="card-header">
-                <div className="icon-wrapper">
-                  {industry.icon}
+        {/* ── Grid ── */}
+        <div className="ei-grid" ref={gridRef}>
+          {industries.map((ind, idx) => {
+            const Icon = ind.icon;
+            return (
+              <article
+                key={idx}
+                className="ei-card"
+                style={{ "--ei-delay": `${idx * 80}ms` }}
+              >
+                {/* Image */}
+                <div className="ei-card-image">
+                  <img
+                    src={ind.image}
+                    alt={ind.title}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="ei-card-image-overlay" />
                 </div>
-                <div className="header-content">
-                  <h3>{industry.title}</h3>
-                  <div className="roi-badge">
-                    <TrendingUp size={14} />
-                    <span>{industry.roi}</span>
+
+                {/* Content */}
+                <div className="ei-card-content">
+                  <div className="ei-card-icon">
+                    <Icon size={20} strokeWidth={1.5} />
                   </div>
-                </div>
-              </div>
-
-              {/* Card Body */}
-              <p className="industry-desc">{industry.desc}</p>
-
-              {/* Premium Details Row */}
-              <div className="premium-details">
-                <div className="detail-item">
-                  <div className="detail-icon">⚡</div>
-                  <div className="detail-content">
-                    <div className="detail-label">Tech Stack</div>
-                    <div className="detail-value">{industry.techStack}</div>
-                  </div>
-                </div>
-                <div className="detail-item">
-                  <div className="detail-icon">🚀</div>
-                  <div className="detail-content">
-                    <div className="detail-label">Delivery</div>
-                    <div className="detail-value">{industry.deliveryTime}</div>
-                  </div>
-                </div>
-                <div className="detail-item">
-                  <div className="detail-icon">✓</div>
-                  <div className="detail-content">
-                    <div className="detail-label">Success Rate</div>
-                    <div className="detail-value">{industry.successRate}</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Highlights */}
-              <ul className="industry-highlights">
-                {industry.highlights.map((item, i) => (
-                  <li key={i}>
-                    <CheckCircle2 size={12} />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Featured Solutions - Only for tall cards */}
-              {industry.featuredSolutions && (
-                <div className="featured-solutions">
-                  <div className="featured-title">✨ Featured Solutions</div>
-                  <div className="solutions-grid">
-                    {industry.featuredSolutions.map((solution, i) => (
-                      <div key={i} className="solution-badge">
-                        {solution}
-                      </div>
+                  <h3 className="ei-card-title">{ind.title}</h3>
+                  <p className="ei-card-desc">{ind.desc}</p>
+                  <div className="ei-card-caps">
+                    {ind.capabilities.map((cap, i) => (
+                      <span key={i} className="ei-cap">{cap}</span>
                     ))}
                   </div>
                 </div>
-              )}
-
-              {/* Pulse Corner */}
-              <div className="pulse-corner"></div>
-            </div>
-          ))}
+              </article>
+            );
+          })}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="industries-cta">
-          <p>Don't see your industry? We create custom solutions for unique business needs.</p>
-          <button className="contact-cta" onClick={() => {
-            const el = document.getElementById('contact');
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-          }}>
-            <span>Let's Talk</span>
-            <span className="cta-arrow">→</span>
-          </button>
+        {/* ── Bottom CTA ── */}
+        <div className="ei-bottom">
+          <p className="ei-bottom-text">
+            Operating in a different sector? We build for complexity.
+          </p>
+          <a
+            href="#contact"
+            className="ei-bottom-link"
+            onClick={(e) => {
+              e.preventDefault();
+              const el = document.getElementById("contact");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            <span>Discuss Your Requirements</span>
+            <ArrowRight size={16} strokeWidth={2} />
+          </a>
         </div>
       </div>
     </section>

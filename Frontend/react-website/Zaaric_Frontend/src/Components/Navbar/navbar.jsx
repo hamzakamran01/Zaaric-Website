@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/zaaric_logo.png";
 import "./navbar.css";
 
@@ -8,11 +8,28 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const location = useLocation();
 
   // Smooth scroll handler
+  // Smooth scroll handler
   const scrollToSection = (sectionId) => {
+    if (sectionId === 'hero') {
+      // Use setTimeout to ensure this runs after event bubbling
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 50);
+      return;
+    }
     const el = document.getElementById(sectionId);
     if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleLinkClick = (e, sectionId) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      scrollToSection(sectionId);
+    }
+    setIsOpen(false);
   };
 
   // Scroll detection (sticky + hide on scroll down)
@@ -31,10 +48,14 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
+  // Manage overflow based on menu state
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
+  }, [isOpen]);
+
   // Toggle mobile menu
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    document.body.style.overflow = isOpen ? "auto" : "hidden";
   };
 
 
@@ -50,7 +71,8 @@ const Navbar = () => {
           onClick={() => scrollToSection("hero")}
           style={{ cursor: "pointer" }}
         >
-          <img src={logo} alt="Zaaric Logo" width={140} height={50} />
+          {/* Using public folder asset directly to ensure latest version */}
+          <img src="/Assets/zaaric_logo.png" alt="Zaaric Logo" className="zaaric-logo-img" length='100' width='100' />
         </div>
 
         {/* Desktop Links */}
@@ -67,7 +89,7 @@ const Navbar = () => {
             <Link
               key={link.id}
               to="/"
-              onClick={() => scrollToSection(link.id)}
+              onClick={(e) => handleLinkClick(e, link.id)}
               className="nav-link"
             >
               {link.name}
@@ -130,9 +152,8 @@ const Navbar = () => {
             <Link
               key={link.id}
               to="/"
-              onClick={() => {
-                toggleMenu();
-                scrollToSection(link.id);
+              onClick={(e) => {
+                handleLinkClick(e, link.id);
               }}
               className="mobile-nav-link"
             >
@@ -141,7 +162,7 @@ const Navbar = () => {
           ))}
         </nav>
       </div>
-    </header>
+    </header >
   );
 };
 

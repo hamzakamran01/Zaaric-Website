@@ -43,64 +43,76 @@ const TrustIndicators = () => {
     ];
 
     return (
-        <section className="trust-indicators mission-section" ref={sectionRef}>
-            <div className="trust-container">
-                {/* Section Header */}
-                <div className="trust-header">
-                    <span className="trust-badge">Our Vision for the Future</span>
-                    <h2 className="trust-title">
-                        Scaling <span className="gradient-text">AI Innovation</span> Globally
-                    </h2>
-                    <p className="trust-subtitle">
-                        Our mission is to democratize enterprise AI, making cutting-edge automation accessible to organizations worldwide while maintaining the highest standards of excellence
-                    </p>
+        <section className="trust-indicators-vertical" ref={sectionRef}>
+
+            {/* PART 1: HERO BANNER (Image + Title) */}
+            <div className="trust-hero-banner">
+                <div className="trust-bg-wrapper">
+                    <img
+                        src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2672&auto=format&fit=crop"
+                        alt="Global Neural Network"
+                        className="trust-bg-image"
+                    />
+                    <div className="trust-hero-overlay"></div>
                 </div>
 
-                {/* Mission Pillars - 3 Cards */}
-                <div className="metrics-grid mission-grid">
-                    {missionPillars.map((pillar, index) => (
-                        <div key={index} className="metric-card mission-card" data-index={index}>
-                            <div className="metric-icon-wrapper">
-                                <div className="metric-icon">{pillar.icon}</div>
-                                <div className="metric-glow"></div>
-                            </div>
-                            <div className="metric-content">
-                                <div className="metric-label mission-title">{pillar.title}</div>
-                                <div className="metric-description mission-description">
-                                    {pillar.description}
+                <div className="trust-hero-content">
+                    <div className="trust-container">
+                        <div className={`trust-header-left ${isVisible ? 'animate-in' : ''}`}>
+                            <div className="trust-label">GLOBAL INFRASTRUCTURE</div>
+                            <h2 className="trust-title">
+                                Scaling <span className="gradient-text">AI Innovation</span> Globally
+                            </h2>
+                            <p className="trust-subtitle">
+                                Democratizing enterprise AI with a battle-tested infrastructure that powers
+                                mission-critical operations across continents.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* PART 2: DETAILS SECTION (Grid + Vision) */}
+            <div className="trust-details-section">
+                <div className={`trust-container ${isVisible ? 'animate-in' : ''}`}>
+
+                    {/* Enterprise Mission Grid */}
+                    <div className="enterprise-grid">
+                        {missionPillars.map((pillar, index) => (
+                            <div key={index} className="enterprise-card" style={{ transitionDelay: `${index * 100}ms` }}>
+                                <div className="card-top-border"></div>
+                                <div className="enterprise-icon-box">
+                                    {pillar.icon}
                                 </div>
+                                <h3 className="enterprise-card-title">{pillar.title}</h3>
+                                <p className="enterprise-card-desc">
+                                    {pillar.description}
+                                </p>
                             </div>
-                            <div className="metric-border"></div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
 
-                {/* Vision Statement */}
-                <div className="vision-statement">
-                    <div className="vision-content">
-                        <h3 className="vision-title">2030 Vision</h3>
-                        <p className="vision-text">
-                            By 2030, we envision powering <strong>10,000+ enterprises</strong> globally,
-                            deploying <strong>100,000+ AI agents</strong> across industries, and establishing
-                            ourselves as the <strong>leading AI automation platform</strong> trusted by Fortune 500 companies worldwide.
-                        </p>
-                    </div>
-                    <div className="vision-metrics">
-                        <div className="vision-metric">
-                            <div className="vision-number">10K+</div>
-                            <div className="vision-label">Global Enterprises</div>
-                        </div>
-                        <div className="vision-divider"></div>
-                        <div className="vision-metric">
-                            <div className="vision-number">100K+</div>
-                            <div className="vision-label">AI Agents Deployed</div>
-                        </div>
-                        <div className="vision-divider"></div>
-                        <div className="vision-metric">
-                            <div className="vision-number">#1</div>
-                            <div className="vision-label">AI Platform</div>
+                    {/* Vision 2030 Anchor Bar */}
+                    <div className="vision-anchor-bar">
+                        <div className="vision-anchor-label">2030 VISION</div>
+                        <div className="vision-metrics-row">
+                            <div className="vision-stat">
+                                <span className="v-num">10K+</span>
+                                <span className="v-txt">Global Enterprises</span>
+                            </div>
+                            <div className="v-divider"></div>
+                            <div className="vision-stat">
+                                <span className="v-num">100K+</span>
+                                <span className="v-txt">AI Agents Deployed</span>
+                            </div>
+                            <div className="v-divider"></div>
+                            <div className="vision-stat">
+                                <span className="v-num">#1</span>
+                                <span className="v-txt">Trusted AI Platform</span>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>

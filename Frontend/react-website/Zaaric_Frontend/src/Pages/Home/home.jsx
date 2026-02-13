@@ -42,13 +42,6 @@ const AICapabilities = lazy(() => import("../../Components/AICapabilities/AICapa
 const FeaturedCaseStudy = lazy(() => import("../../Components/FeaturedCaseStudy/FeaturedCaseStudy.jsx"));
 const IdeaToMVP = lazy(() => import("../../Components/IdeaToMVP/IdeaToMVP.jsx"));
 
-// ✅ Images
-import robotImage from "/Assets/hero_robot3.webp";
-import aiIdeaImage from "/Assets/AI_idea.png";
-import marketAnalysisImage from "/Assets/tech_market_analytics.png";
-import marketAnalysis2Image from "/Assets/point4.webp";
-import robotWorkingImage from "/Assets/robot_working.png";
-
 const Home = () => {
   const contactRef = useRef(null);
   const servicesRef = useRef(null);
@@ -576,8 +569,72 @@ const Home = () => {
       </Suspense>
 
 
-      {/* Elite Parallax Transition */}
-      <div className="elite-parallax-transition"></div>
+      {/* ═══ Marquee Strip: Exact Hero↔Services Intersection ═══ */}
+      <div className="hero-services-marquee">
+        <div className="marquee-track">
+          {[
+            "/Assets/chatgpt_logo.png",
+            "/Assets/anthropic_logo.png",
+            "/Assets/AgenticAI_logo3_n8n.png",
+            "/Assets/AI_automation_logo1.png",
+            "/Assets/AI_automation_logo2.png",
+            "/Assets/cloud_Infrastructure_logo1.png",
+            "/Assets/cloud_Infrastructure_logo2.png",
+            "/Assets/cloud_Infrastructure_logo3.png",
+            "/Assets/full_stack_logo1.png",
+            "/Assets/full_stack_logo2.png",
+            "/Assets/nextjs_logo.jpg",
+            "/Assets/github_logo.png",
+            "/Assets/Content_logo1.png",
+            "/Assets/Content_logo2.png",
+            "/Assets/Idea_validation_logo1.png",
+            "/Assets/Idea_validation_logo2.png"
+          ].map((src, index) => (
+            <div key={index} className="marquee-item-logo">
+              <img
+                src={src}
+                alt="Technology Partner"
+                style={{
+                  height: '50px',
+                  width: 'auto',
+                  objectFit: 'contain',
+                }}
+              />
+            </div>
+          ))}
+          {/* Duplicate for infinite scroll */}
+          {[
+            "/Assets/chatgpt_logo.png",
+            "/Assets/anthropic_logo.png",
+            "/Assets/AgenticAI_logo3_n8n.png",
+            "/Assets/AI_automation_logo1.png",
+            "/Assets/AI_automation_logo2.png",
+            "/Assets/cloud_Infrastructure_logo1.png",
+            "/Assets/cloud_Infrastructure_logo2.png",
+            "/Assets/cloud_Infrastructure_logo3.png",
+            "/Assets/full_stack_logo1.png",
+            "/Assets/full_stack_logo2.png",
+            "/Assets/nextjs_logo.jpg",
+            "/Assets/github_logo.png",
+            "/Assets/Content_logo1.png",
+            "/Assets/Content_logo2.png",
+            "/Assets/Idea_validation_logo1.png",
+            "/Assets/Idea_validation_logo2.png"
+          ].map((src, index) => (
+            <div key={`dup-${index}`} className="marquee-item-logo">
+              <img
+                src={src}
+                alt="Technology Partner"
+                style={{
+                  height: '50px',
+                  width: 'auto',
+                  objectFit: 'contain',
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Services Section */}
       <Services ref={servicesRef} />
