@@ -693,10 +693,11 @@ const Home = () => {
                   <li>Frontend developer with GSAP and three js building pixel perfect user experiences</li>
                 </ul>
               </div>
+              {/* Image inline — visible on both desktop and mobile */}
+              <div className="card-img mobile-inline-img" id='img1'>
+                <img src="/Assets/CEO.png" alt="Hamza Kamran" />
+              </div>
             </article>
-            {!isMobile && <div className="card-img" id='img1'>
-              <img src="/Assets/CEO.png" alt="Hamza Kamran" />
-            </div>}
 
             {/* CTO */}
             <article className="timeline-card right" data-node="1">
@@ -716,87 +717,16 @@ const Home = () => {
                   <li>Proven track record of building
                     autonomous AI agents, custom GPTs</li>
                   <li> Building scalable SaaS applications
-                    for diverse use cases.</li>
+                    for diverse use cases.</li>
                 </ul>
               </div>
-            </article>
-            {!isMobile && <div className="card-img" id='img2'>
-              <img src="/Assets/CTO.png" alt="Umair Khan Shinwai" />
-            </div>}
-
-            {/* Business Dev Lead */}
-            {/* <article className="timeline-card left" data-node="2">
-          <div className="dot" onClick={() => onTimelineDotClick(2)}></div>
-          <div className="card-inner">
-            <h4>Riyaan bin Shamas</h4>
-            <span className="role">Business Development Lead</span>
-            <p>
-              Owns pipeline and partnerships for US/EU. Aligns solutions with business
-              outcomes, turning requirements into clear scopes and measurable ROI.
-            </p>
-            <ul>
-              <li>Enterprise discovery, proposals, and stakeholder alignment</li>
-              <li>Pricing strategy and value communication</li>
-              <li>Account growth and relationship management</li>
-            </ul>
-          </div>
-        </article> */}
-            {!isMobile && <div className="card-img" id='img3'>
-              <img src="/Assets/founder_ceo.jpg" alt="Riyaan bin Shamas" />
-            </div>}
-
-            {/* Graphics Lead */}
-            {/* <article className="timeline-card right" data-node="3">
-          <div className="dot" onClick={() => onTimelineDotClick(3)}></div>
-          <div className="card-inner">
-            <h4>M. Umair</h4>
-            <span className="role">Graphics Lead</span>
-            <p>
-              Crafts enterprise-grade brand systems, UI kits, and motion. Ensures that
-              every interaction feels intentional and on-brand.
-            </p>
-            <ul>
-              <li>Design systems, accessibility, and interaction patterns</li>
-              <li>Motion design for product and marketing</li>
-              <li>Brand identity and multi-channel assets</li>
-            </ul>
-          </div>
-        </article> */}
-            {!isMobile && <div className="card-img" id='img4'>
-              <img src="/Assets/CEO.jpg" alt="M. Umair" />
-            </div>}
-
-          </div>
-
-          {/* Mobile Images Container */}
-          {isMobile && <div className="mobile-images-container visibility">
-            <div className="mobile-image-item">
-              <div className="card-img">
-                <img src="/Assets/CEO.png" alt="Hamza Kamran" />
-              </div>
-              <div className="mobile-image-info">
-                <h4>Hamza Kamran</h4>
-                <span className="role">Founder & CEO</span>
-              </div>
-            </div>
-            <div className="mobile-image-item">
-              <div className="card-img">
+              {/* Image inline — visible on both desktop and mobile */}
+              <div className="card-img mobile-inline-img" id='img2'>
                 <img src="/Assets/CTO.png" alt="Umair Khan Shinwai" />
               </div>
-              <div className="mobile-image-info">
-                <h4>Umair Khan Shinwai</h4>
-                <span className="role">Co-Founder & CTO</span>
-              </div>
-            </div>
+            </article>
 
-          </div>}
-
-          {/* Mobile Dots Navigation */}
-          {isMobile && <div className="mobile-images-dots">
-            <span className="mobile-dot active" onClick={() => handleMobileDotClick(0)}></span>
-            <span className="mobile-dot" onClick={() => handleMobileDotClick(1)}></span>
-
-          </div>}
+          </div>
         </div>
       </section>
 

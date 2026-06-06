@@ -1,0 +1,254 @@
+/* ═══════════════════════════════════════════════════════════════
+   Enterprise Capability Wheel — Reference chevron ring
+   ═══════════════════════════════════════════════════════════════ */
+
+.ecw-container {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    min-height: 520px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.ecw-wheel-stage {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    flex-shrink: 0;
+}
+
+.ecw-wheel-wrap {
+    position: relative;
+    width: min(100%, 400px);
+    aspect-ratio: 1;
+    margin: 0 auto;
+    z-index: 1;
+}
+
+.ecw-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+}
+
+/* ─── Chevron segments — white gaps like reference ─── */
+.ecw-segment {
+    cursor: pointer;
+    stroke: #0a0a0a;
+    stroke-width: 3.5;
+    stroke-linejoin: miter;
+    stroke-miterlimit: 4;
+    paint-order: stroke fill;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+    outline: none;
+}
+
+.ecw-segment:hover,
+.ecw-segment:focus-visible {
+    filter: brightness(1.06);
+}
+
+.ecw-segment.is-active {
+    filter: brightness(1.2) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+}
+
+.ecw-center-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 17px;
+    font-weight: 900;
+    fill: #000000;
+    letter-spacing: 0.14em;
+}
+
+.ecw-center-sub {
+    font-family: 'Poppins', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    fill: #94a3b8;
+    letter-spacing: 0.06em;
+}
+
+.ecw-center-disc {
+    transition: stroke 0.35s ease;
+}
+
+/* ─── Orbiting nodes ─── */
+.ecw-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 3;
+}
+
+.ecw-node-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ecw-node-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: #cbd5e1;
+    white-space: nowrap;
+}
+
+.ecw-node.is-active .ecw-node-icon {
+    transform: scale(1.1);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+.ecw-node.is-active .ecw-node-label {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* ─── Detail panel — clear gap below wheel ─── */
+.ecw-detail {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 340px;
+    margin-top: 36px;
+    background: #161b22;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+    animation: ecwDetailIn 0.35s ease;
+}
+
+@keyframes ecwDetailIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ecw-detail-accent {
+    height: 3px;
+    width: 100%;
+}
+
+.ecw-detail-body {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+}
+
+.ecw-detail-body>div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.ecw-detail-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.ecw-detail-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8125rem;
+    color: #94a3b8;
+    line-height: 1.4;
+}
+
+/* ─── Trust chips ─── */
+.ecw-chip {
+    position: absolute;
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 13px;
+    background: rgba(22, 27, 34, 0.97);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: #cbd5e1;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+}
+
+.ecw-chip-tl {
+    top: 2%;
+    left: -4%;
+}
+
+.ecw-chip-tr {
+    top: 6%;
+    right: -6%;
+}
+
+.ecw-chip-bl {
+    top: 58%;
+    left: -8%;
+}
+
+.ecw-chip-br {
+    top: 54%;
+    right: -10%;
+}
+
+.ecw-chip-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ecw-detail {
+        animation: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .ecw-container {
+        min-height: 480px;
+        max-width: 360px;
+    }
+
+    .ecw-wheel-wrap {
+        width: min(100%, 320px);
+    }
+
+    .ecw-detail {
+        margin-top: 28px;
+    }
+
+    .ecw-chip-tr,
+    .ecw-chip-br {
+        display: none;
+    }
+}

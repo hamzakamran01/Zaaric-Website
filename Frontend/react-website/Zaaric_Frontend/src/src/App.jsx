@@ -38,7 +38,7 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <HelmetProvider>
           <Helmet>
             {/* Primary Meta Tags */}
