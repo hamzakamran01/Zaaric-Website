@@ -342,6 +342,47 @@
 .hero-story-card:nth-child(2) {
     grid-column: span 1;
     grid-row: span 2;
+    /* Image zoomed slightly to fill the top area without large gaps */
+    background-size: 177% auto;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+}
+
+/* White bottom zone — override text colors for contrast */
+.hero-story-card:nth-child(2) .hero-story-card-content {
+    background: #ffffff;
+    padding: 20px clamp(24px, 3vw, 32px) clamp(24px, 3vw, 32px);
+    margin: 0 calc(-1 * clamp(24px, 3vw, 32px)) calc(-1 * clamp(24px, 3vw, 32px));
+    border-radius: 0 0 16px 16px;
+}
+
+.hero-story-card:nth-child(2) .hero-story-card-title {
+    color: #111111;
+    text-shadow: none;
+}
+
+.hero-story-card:nth-child(2) .hero-story-card-desc {
+    color: #444444;
+    text-shadow: none;
+}
+
+.hero-story-card:nth-child(2) .hero-story-step {
+    background: rgba(0, 114, 255, 0.1);
+    color: var(--hero-secondary);
+}
+
+/* Override the overlay for this card — only darken the image zone */
+.hero-story-card:nth-child(2) .hero-story-card-overlay {
+    bottom: 30%;
+    background: linear-gradient(to bottom,
+            rgba(10, 12, 16, 0.0) 0%,
+            rgba(10, 12, 16, 0.15) 100%);
+}
+
+/* Disable the ::after zoom layer — it inherits cover sizing and crops the image */
+.hero-story-card:nth-child(2)::after {
+    display: none;
 }
 
 .hero-story-card:nth-child(3),

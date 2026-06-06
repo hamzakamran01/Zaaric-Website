@@ -87,6 +87,9 @@ const EnterpriseCapabilityWheel = () => {
     const [paused, setPaused] = useState(false);
     const timerRef = useRef(null);
 
+    const [hasEntered, setHasEntered] = useState(false);
+    const containerRef = useRef(null);
+
     const cycleNext = useCallback(() => {
         setActiveIndex((prev) => (prev + 1) % SEG_COUNT);
     }, []);
@@ -97,11 +100,28 @@ const EnterpriseCapabilityWheel = () => {
         return () => clearInterval(timerRef.current);
     }, [paused, cycleNext]);
 
+    // Trigger spin animation when entering viewport
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                setHasEntered(true);
+                observer.disconnect();
+            }
+        }, { threshold: 0.2 });
+
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
     const active = SEGMENTS[activeIndex];
 
     return (
         <div
             className="ecw-container"
+            ref={containerRef}
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
         >
@@ -119,7 +139,7 @@ const EnterpriseCapabilityWheel = () => {
                             </filter>
                         </defs>
 
-                        <g className="ecw-ring" filter="url(#ecw-soft-shadow)">
+                        <g className={`ecw-ring ${hasEntered ? 'spin-intro' : ''}`} filter="url(#ecw-soft-shadow)">
                             {SEGMENTS.map((seg, i) => {
                                 const start = i * SEG_ANGLE;
                                 const end = (i + 1) * SEG_ANGLE;
