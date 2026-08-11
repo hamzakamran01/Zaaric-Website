@@ -1,0 +1,177 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   CAREOPS — PAGE SHELL & SECTION LAYOUT
+   Token rules and the banned-class list live in careops.tokens.css.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Shell ────────────────────────────────────────────────────────────── */
+.careops-page {
+  /* Undo the dark site's inherited globals:
+     .App { text-align: center } and body { background/color/font-family } */
+  text-align: left;
+  background: var(--co-canvas);
+  color: var(--co-fg);
+  font-family: var(--co-font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  min-height: 100vh;
+  width: 100%;
+  padding-top: var(--co-nav-h);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant-numeric: tabular-nums;
+  overflow-x: clip;
+}
+
+.careops-page *,
+.careops-page *::before,
+.careops-page *::after {
+  box-sizing: border-box;
+}
+
+.careops-page :focus-visible {
+  outline: 2px solid var(--co-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Layout primitives ────────────────────────────────────────────────── */
+.careops-page .co-shell {
+  width: 100%;
+  max-width: var(--co-max);
+  margin: 0 auto;
+  padding-inline: 16px;
+}
+
+.careops-page .co-shell--narrow {
+  max-width: 940px;
+}
+
+.careops-page .co-section {
+  position: relative;
+  padding-block: clamp(56px, 8vw, 104px);
+}
+
+.careops-page .co-section--tight {
+  padding-block: clamp(40px, 5vw, 64px);
+}
+
+.careops-page .co-section--surface {
+  background: var(--co-surface);
+  border-block: 1px solid var(--co-line);
+}
+
+.careops-page .co-section--ink {
+  background: var(--co-nav);
+  color: #e8edf4;
+  border-block: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ── Section headers ──────────────────────────────────────────────────── */
+.careops-page .co-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--co-brand-600);
+  margin: 0 0 12px;
+}
+
+.careops-page .co-section--ink .co-eyebrow {
+  color: var(--co-brand-300);
+}
+
+.careops-page .co-h2 {
+  font-size: clamp(24px, 3.2vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: inherit;
+  margin: 0 0 14px;
+  max-width: 22ch;
+}
+
+.careops-page .co-h2--wide {
+  max-width: 30ch;
+}
+
+.careops-page .co-lede {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--co-fg-muted);
+  margin: 0;
+  max-width: 62ch;
+}
+
+.careops-page .co-section--ink .co-lede {
+  color: #93a1b5;
+}
+
+.careops-page .co-head {
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+
+/* ── Source notes — every stat on this page carries its attribution ───── */
+.careops-page .co-source {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--co-fg-subtle);
+  margin: 10px 0 0;
+}
+
+.careops-page .co-section--ink .co-source {
+  color: #6c7d94;
+}
+
+/* ── Reveal motion ────────────────────────────────────────────────────────
+   Hidden state is gated on .co-js so that if the observer never runs the
+   page is still readable rather than blank.                               */
+.careops-page .co-anim {
+  opacity: 1;
+}
+
+.careops-page.co-js .co-anim {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.55s var(--co-ease) var(--co-d, 0ms),
+    transform 0.55s var(--co-ease) var(--co-d, 0ms);
+  will-change: opacity, transform;
+}
+
+.careops-page.co-js .co-anim.co-anim-in {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .careops-page.co-js .co-anim,
+  .careops-page.co-js .co-anim.co-anim-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (min-width: 640px) {
+  .careops-page .co-shell {
+    padding-inline: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .careops-page .co-shell {
+    padding-inline: 32px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .careops-page {
+    --co-nav-h: 76px;
+  }
+}

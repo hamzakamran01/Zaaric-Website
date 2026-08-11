@@ -1,4 +1,7 @@
 import React, { Suspense, lazy, useState, useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import HomeSeo from "../../Components/Seo/HomeSeo.jsx";
+import { scrollToIdWhenReady } from "../../utils/scrollToId";
 import "./home.css";
 import logo from "../../assets/zaaric_logo.png";
 import heroVideo from "../../assets/hero_bgVideo.mp4";
@@ -63,6 +66,20 @@ const Home = () => {
 
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  /* ---------------- Deep link from another route (e.g. /careops -> #services) --------------- */
+  useEffect(() => {
+    const id = location.state?.scrollTo;
+    if (!id) return undefined;
+
+    const cancel = scrollToIdWhenReady(id, { offset: 96 });
+    // Clear the state so a refresh doesn't re-fire the scroll.
+    navigate(location.pathname, { replace: true, state: null });
+    return cancel;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.state]);
 
   // Utility function for reduced motion preference
   const prefersReducedMotion = () => {
@@ -387,6 +404,11 @@ const Home = () => {
       const targetEl = e.target.closest('button, [role="button"], .cta-btn, .cta-button, .apply');
       if (!targetEl) return;
 
+      // This listener is on `document` in the capture phase, so any other page
+      // rendered concurrently cannot defend itself against it. Bail out on
+      // anything belonging to another route.
+      if (targetEl.closest('.careops-page')) return;
+
       // Skip if it's inside the navbar (hamburger menu, mobile menu, nav links)
       const isNavbarElement = targetEl.closest('.navbar, .navbar-toggle, .mobile-menu, .navbar-links');
       if (isNavbarElement) return;
@@ -563,6 +585,8 @@ const Home = () => {
 
   return (
     <div className="home-container">
+      <HomeSeo />
+
       {/* Hero Section */}
       <Suspense fallback={<div className="loading">Loading...</div>}>
         <RevolutionaryHero heroRef={heroRef} />

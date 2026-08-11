@@ -24,13 +24,28 @@ const Navbar = () => {
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleLinkClick = (e, sectionId) => {
+  // Real routes let the router navigate. Section links only intercept when we
+  // are already on Home; from another route they navigate to "/" carrying the
+  // target in location.state, which Home consumes on mount.
+  const handleLinkClick = (e, link) => {
+    setIsOpen(false);
+    if (link.to) return;
     if (location.pathname === '/') {
       e.preventDefault();
-      scrollToSection(sectionId);
+      scrollToSection(link.id);
     }
-    setIsOpen(false);
   };
+
+  const LINKS = [
+    { name: "Home", id: "hero" },
+    { name: "Team", id: "team" },
+    { name: "Services", id: "services" },
+    { name: "Industries", id: "industries" },
+    { name: "Careers", id: "careers" },
+    { name: "Case Study", id: "case-study" },
+    { name: "CareOps", to: "/careops" },
+    { name: "Contact", id: "contact" },
+  ];
 
   // Scroll detection (sticky + hide on scroll down)
   useEffect(() => {
@@ -77,20 +92,13 @@ const Navbar = () => {
 
         {/* Desktop Links */}
         <nav className="navbar-links">
-          {[
-            { name: "Home", id: "hero" },
-            { name: "Team", id: "team" },
-            { name: "Services", id: "services" },
-            { name: "Industries", id: "industries" },
-            { name: "Careers", id: "careers" },
-            { name: "Case Study", id: "case-study" },
-            { name: "Contact", id: "contact" },
-          ].map((link) => (
+          {LINKS.map((link) => (
             <Link
-              key={link.id}
-              to="/"
-              onClick={(e) => handleLinkClick(e, link.id)}
-              className="nav-link"
+              key={link.name}
+              to={link.to || "/"}
+              state={link.id ? { scrollTo: link.id } : undefined}
+              onClick={(e) => handleLinkClick(e, link)}
+              className={`nav-link${link.to ? " nav-link--route" : ""}`}
             >
               {link.name}
             </Link>
@@ -140,22 +148,13 @@ const Navbar = () => {
 
         {/* Mobile Drawer */}
         <nav className={`mobile-menu ${isOpen ? "open" : ""}`}>
-          {[
-            { name: "Home", id: "hero" },
-            { name: "Team", id: "team" },
-            { name: "Services", id: "services" },
-            { name: "Industries", id: "industries" },
-            { name: "Careers", id: "careers" },
-            { name: "Case Study", id: "case-study" },
-            { name: "Contact", id: "contact" },
-          ].map((link) => (
+          {LINKS.map((link) => (
             <Link
-              key={link.id}
-              to="/"
-              onClick={(e) => {
-                handleLinkClick(e, link.id);
-              }}
-              className="mobile-nav-link"
+              key={link.name}
+              to={link.to || "/"}
+              state={link.id ? { scrollTo: link.id } : undefined}
+              onClick={(e) => handleLinkClick(e, link)}
+              className={`mobile-nav-link${link.to ? " mobile-nav-link--route" : ""}`}
             >
               {link.name}
             </Link>

@@ -1,0 +1,404 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   CAREOPS MINIATURE-APP UI KIT
+   Ordered by hand: tones -> primitives -> composites -> frame -> motion
+   -> container queries. Every selector is `co-` prefixed and, where it
+   could ever collide, qualified by .careops-page so specificity decides
+   rather than chunk order.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Tone triples ─────────────────────────────────────────────────────── */
+.careops-page .co-tone-neutral { --co-t-bg: var(--co-neutral-bg); --co-t-fg: var(--co-neutral-fg); --co-t-ring: var(--co-neutral-ring); --co-t-solid: var(--co-neutral-solid); }
+.careops-page .co-tone-brand   { --co-t-bg: var(--co-brand-bg);   --co-t-fg: var(--co-brand-fg);   --co-t-ring: var(--co-brand-ring);   --co-t-solid: var(--co-brand-solid); }
+.careops-page .co-tone-success { --co-t-bg: var(--co-success-bg); --co-t-fg: var(--co-success-fg); --co-t-ring: var(--co-success-ring); --co-t-solid: var(--co-success-solid); }
+.careops-page .co-tone-warning { --co-t-bg: var(--co-warning-bg); --co-t-fg: var(--co-warning-fg); --co-t-ring: var(--co-warning-ring); --co-t-solid: var(--co-warning-solid); }
+.careops-page .co-tone-danger  { --co-t-bg: var(--co-danger-bg);  --co-t-fg: var(--co-danger-fg);  --co-t-ring: var(--co-danger-ring);  --co-t-solid: var(--co-danger-solid); }
+.careops-page .co-tone-violet  { --co-t-bg: var(--co-violet-bg);  --co-t-fg: var(--co-violet-fg);  --co-t-ring: var(--co-violet-ring);  --co-t-solid: var(--co-violet-solid); }
+.careops-page .co-tone-slate   { --co-t-bg: var(--co-slate-bg);   --co-t-fg: var(--co-slate-fg);   --co-t-ring: var(--co-slate-ring);   --co-t-solid: var(--co-slate-solid); }
+
+/* ── Badge ────────────────────────────────────────────────────────────── */
+.careops-page .co-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  font-weight: 500;
+  white-space: nowrap;
+  background: var(--co-t-bg, var(--co-surface-3));
+  color: var(--co-t-fg, var(--co-fg-muted));
+  box-shadow: inset 0 0 0 1px var(--co-t-ring, var(--co-line));
+}
+.careops-page .co-badge--md { font-size: 12px; padding: 3px 9px; }
+.careops-page .co-badge--sm { font-size: 11px; padding: 2px 7px; }
+.careops-page .co-badge__dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--co-t-solid, currentColor);
+}
+
+/* ── Avatar ───────────────────────────────────────────────────────────── */
+.careops-page .co-avatar {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: var(--co-brand-100);
+  color: var(--co-brand-700);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  flex: none;
+}
+.careops-page .co-avatar--sm { width: 20px; height: 20px; font-size: 9.5px; }
+.careops-page .co-avatar--md { width: 26px; height: 26px; font-size: 11px; }
+
+/* ── Button ───────────────────────────────────────────────────────────── */
+.careops-page .co-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 1px solid transparent;
+  border-radius: var(--co-r-ctl);
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: default;
+  transition: background 200ms var(--co-ease), border-color 200ms var(--co-ease),
+    box-shadow 200ms var(--co-ease), transform 150ms var(--co-ease);
+}
+.careops-page .co-btn--md { font-size: 14px; padding: 11px 18px; }
+.careops-page .co-btn--sm { font-size: 12.5px; padding: 7px 12px; }
+.careops-page .co-btn--lg { font-size: 15px; padding: 13px 22px; }
+
+.careops-page .co-btn--primary {
+  background: var(--co-brand-600); color: #fff;
+  box-shadow: var(--co-sh-card);
+}
+.careops-page .co-btn--secondary {
+  background: var(--co-surface); color: var(--co-fg);
+  border-color: var(--co-line-strong);
+  box-shadow: var(--co-sh-card);
+}
+.careops-page .co-btn--ghost { background: transparent; color: var(--co-brand-700); }
+.careops-page .co-btn--onink {
+  background: #fff; color: var(--co-nav);
+}
+
+.careops-page button.co-btn,
+.careops-page a.co-btn { cursor: pointer; }
+.careops-page button.co-btn--primary:hover,
+.careops-page a.co-btn--primary:hover { background: var(--co-brand-700); box-shadow: var(--co-sh-raised); }
+.careops-page button.co-btn--secondary:hover,
+.careops-page a.co-btn--secondary:hover { border-color: var(--co-brand-300); box-shadow: var(--co-sh-raised); }
+.careops-page button.co-btn:active,
+.careops-page a.co-btn:active { transform: scale(0.98); }
+.careops-page button.co-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+/* ── Panel ────────────────────────────────────────────────────────────── */
+.careops-page .co-panel {
+  background: var(--co-surface);
+  border: 1px solid var(--co-line);
+  border-radius: var(--co-r-card);
+  box-shadow: var(--co-sh-card);
+  overflow: hidden;
+}
+.careops-page .co-panel__head {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--co-line);
+  background: var(--co-surface-2);
+}
+.careops-page .co-panel__title {
+  margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--co-fg);
+}
+.careops-page .co-panel__meta { margin: 3px 0 0; font-size: 12.5px; color: var(--co-fg-muted); }
+.careops-page .co-panel__action { font-size: 12.5px; color: var(--co-brand-600); font-weight: 500; }
+.careops-page .co-panel__body { padding: 20px; }
+.careops-page .co-panel__body--flush { padding: 0; }
+
+/* ── Progress ─────────────────────────────────────────────────────────── */
+.careops-page .co-progress {
+  width: 100%; border-radius: 999px; background: var(--co-surface-3); overflow: hidden;
+}
+.careops-page .co-progress--md { height: 8px; }
+.careops-page .co-progress--sm { height: 5px; }
+.careops-page .co-progress__fill {
+  display: block; height: 100%; border-radius: inherit;
+  width: var(--co-pct, 0%);
+  background: var(--co-t-solid, var(--co-brand-600));
+}
+.careops-page.co-js .co-progress__fill--anim { width: 0; transition: width 700ms var(--co-ease); }
+.careops-page.co-js .co-anim-in .co-progress__fill--anim,
+.careops-page.co-js .co-anim-in.co-progress__fill--anim { width: var(--co-pct, 0%); }
+
+/* ── Sparkline ────────────────────────────────────────────────────────── */
+.careops-page .co-spark { width: 100%; height: 28px; display: block; }
+.careops-page .co-spark path { stroke: var(--co-t-solid, var(--co-brand-500)); }
+
+/* ── Stat tile ────────────────────────────────────────────────────────── */
+.careops-page .co-stat {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 16px;
+  background: var(--co-surface);
+  border: 1px solid var(--co-line);
+  border-radius: var(--co-r-card);
+  box-shadow: var(--co-sh-card);
+  min-width: 0;
+}
+.careops-page .co-stat--alert { border-color: var(--co-danger-ring); background: #fffafa; }
+.careops-page .co-stat__label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--co-fg-subtle);
+}
+.careops-page .co-stat__value {
+  font-size: 30px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
+  color: var(--co-fg); font-variant-numeric: tabular-nums;
+}
+.careops-page .co-stat__value.co-tone-danger { color: var(--co-danger-fg); }
+.careops-page .co-stat__hint { font-size: 12px; color: var(--co-fg-muted); }
+.careops-page .co-stat__bar { margin-top: 6px; }
+.careops-page .co-stat__spark { margin-top: 4px; }
+
+/* ── Funnel row ───────────────────────────────────────────────────────── */
+.careops-page .co-funnel { display: flex; flex-direction: column; gap: 6px; }
+.careops-page .co-funnel__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.careops-page .co-funnel__stage { font-size: 13px; font-weight: 500; color: var(--co-fg); }
+.careops-page .co-funnel__nums { display: inline-flex; align-items: baseline; gap: 10px; font-variant-numeric: tabular-nums; }
+.careops-page .co-funnel__count { font-size: 13px; font-weight: 600; color: var(--co-fg); }
+.careops-page .co-funnel__value { font-size: 12px; color: var(--co-fg-muted); }
+.careops-page .co-funnel--empty .co-funnel__stage,
+.careops-page .co-funnel--empty .co-funnel__count { color: var(--co-fg-subtle); }
+.careops-page .co-funnel__track { height: 8px; border-radius: 999px; background: var(--co-surface-3); overflow: hidden; }
+.careops-page .co-funnel__fill {
+  display: block; height: 100%; border-radius: inherit;
+  width: var(--co-pct, 0%);
+  background: var(--co-t-solid, var(--co-brand-600));
+}
+.careops-page.co-js .co-anim .co-funnel__fill { width: 0; transition: width 700ms var(--co-ease) var(--co-d, 0ms); }
+.careops-page.co-js .co-anim-in .co-funnel__fill { width: var(--co-pct, 0%); }
+
+/* ── Room card ────────────────────────────────────────────────────────── */
+.careops-page .co-room {
+  display: flex; align-items: stretch;
+  background: var(--co-surface);
+  border: 1px solid var(--co-line);
+  border-radius: var(--co-r-card);
+  box-shadow: var(--co-sh-card);
+  overflow: hidden;
+  transition: transform 200ms var(--co-ease), box-shadow 200ms var(--co-ease);
+}
+.careops-page .co-room:hover { transform: translateY(-1px); box-shadow: var(--co-sh-raised); }
+.careops-page .co-room__rail {
+  flex: none; width: 6px;
+  background: var(--co-t-solid, var(--co-neutral-solid));
+  transition: background 400ms var(--co-ease);
+}
+.careops-page .co-room__body { flex: 1; min-width: 0; padding: 13px 14px; display: flex; flex-direction: column; gap: 5px; }
+.careops-page .co-room__top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.careops-page .co-room__number { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--co-fg); }
+.careops-page .co-room__type { font-size: 12px; color: var(--co-fg-muted); }
+.careops-page .co-room__foot { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-top: 2px; }
+.careops-page .co-room__rate { font-size: 12.5px; font-weight: 500; color: var(--co-fg); font-variant-numeric: tabular-nums; }
+.careops-page .co-room__guest { font-size: 11.5px; color: var(--co-fg-subtle); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ── Kanban ───────────────────────────────────────────────────────────── */
+.careops-page .co-kcol {
+  display: flex; flex-direction: column;
+  background: var(--co-surface-2);
+  border: 1px solid var(--co-line);
+  border-radius: 12px;
+  padding: 10px;
+  min-width: 0;
+}
+.careops-page .co-kcol__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.careops-page .co-kcol__stage { font-size: 11px; font-weight: 600; letter-spacing: 0.055em; text-transform: uppercase; color: var(--co-fg-muted); }
+.careops-page .co-kcol__count {
+  font-size: 11px; font-weight: 600; color: var(--co-fg-muted);
+  background: var(--co-surface-3); border-radius: 999px; padding: 1px 7px;
+  font-variant-numeric: tabular-nums;
+}
+.careops-page .co-kcol__value { font-size: 12px; font-weight: 600; color: var(--co-brand-700); margin-top: 3px; font-variant-numeric: tabular-nums; }
+.careops-page .co-kcol__cards { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; min-height: 40px; }
+
+.careops-page .co-kcard {
+  background: var(--co-surface);
+  border: 1px solid var(--co-line);
+  border-radius: 10px;
+  padding: 11px;
+  display: flex; flex-direction: column; gap: 7px;
+  box-shadow: var(--co-sh-card);
+  transition: transform 200ms var(--co-ease), box-shadow 200ms var(--co-ease),
+    border-color 300ms var(--co-ease);
+}
+.careops-page .co-kcard:hover { transform: translateY(-1px); box-shadow: var(--co-sh-raised); }
+.careops-page .co-kcard__top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.careops-page .co-kcard__name { font-size: 13.5px; font-weight: 600; color: var(--co-fg); letter-spacing: -0.01em; }
+.careops-page .co-kcard__contact { font-size: 12px; color: var(--co-fg-muted); }
+.careops-page .co-kcard__next {
+  display: flex; flex-direction: column; gap: 2px;
+  background: var(--co-surface-2); border-radius: 6px; padding: 6px 8px;
+}
+.careops-page .co-kcard__next-label { font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--co-fg-subtle); }
+.careops-page .co-kcard__next-text { font-size: 12px; color: var(--co-fg); }
+.careops-page .co-kcard__foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.careops-page .co-kcard__property { font-size: 11.5px; color: var(--co-fg-subtle); }
+.careops-page .co-kcard__right { display: inline-flex; align-items: center; gap: 8px; }
+.careops-page .co-kcard__value { font-size: 12.5px; font-weight: 600; color: var(--co-fg); font-variant-numeric: tabular-nums; }
+
+/* ── Task row ─────────────────────────────────────────────────────────── */
+.careops-page .co-task {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) auto auto 20px;
+  align-items: center; gap: 12px;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--co-line);
+}
+.careops-page .co-task:last-child { border-bottom: 0; }
+.careops-page .co-task__check {
+  width: 17px; height: 17px; border-radius: 5px;
+  border: 1.5px solid var(--co-line-strong);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: #fff; flex: none;
+}
+.careops-page .co-task__check--on { background: var(--co-success-solid); border-color: var(--co-success-solid); }
+.careops-page .co-task__main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.careops-page .co-task__title { font-size: 13.5px; font-weight: 500; color: var(--co-fg); }
+.careops-page .co-task--done .co-task__title { color: var(--co-fg-subtle); text-decoration: line-through; }
+.careops-page .co-task__link { font-size: 12px; color: var(--co-brand-600); }
+.careops-page .co-task__date { font-size: 12.5px; color: var(--co-fg-muted); font-variant-numeric: tabular-nums; }
+
+/* ── Table ────────────────────────────────────────────────────────────── */
+.careops-page .co-table { width: 100%; }
+.careops-page .co-table__head,
+.careops-page .co-table__row {
+  display: grid;
+  grid-template-columns: var(--co-cols, minmax(0, 1.4fr) minmax(0, 1fr) auto auto auto);
+  align-items: center; gap: 12px;
+  padding: 10px 16px;
+}
+.careops-page .co-table__head { background: var(--co-surface-2); border-bottom: 1px solid var(--co-line); }
+.careops-page .co-table__row { border-bottom: 1px solid var(--co-line); }
+.careops-page .co-table__row:last-child { border-bottom: 0; }
+.careops-page .co-table__th {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--co-fg-subtle);
+}
+.careops-page .co-table__td { font-size: 13.5px; color: var(--co-fg); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.careops-page .co-table__td--strong { font-weight: 600; letter-spacing: -0.01em; }
+.careops-page .co-table__td--muted { color: var(--co-fg-muted); font-size: 12.5px; }
+.careops-page .co-table__cell--num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ── App frame ────────────────────────────────────────────────────────── */
+.careops-page .co-app {
+  container-type: inline-size;
+  width: 100%;
+  background: var(--co-surface);
+  border: 1px solid var(--co-line-strong);
+  border-radius: var(--co-r-card);
+  box-shadow: var(--co-sh-overlay);
+  overflow: hidden;
+}
+.careops-page .co-app__inner { display: flex; min-height: 100%; }
+.careops-page .co-app--sm .co-app__canvas { padding: 14px; }
+
+.careops-page .co-app__rail {
+  flex: none; width: 178px;
+  background: var(--co-nav);
+  color: #93a1b5;
+  padding: 14px 10px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.careops-page .co-app__brand { display: flex; align-items: center; gap: 9px; padding: 0 6px; }
+.careops-page .co-app__mark {
+  width: 24px; height: 24px; border-radius: 7px; flex: none;
+  background: var(--co-brand-500); color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+}
+.careops-page .co-app__brandname { display: flex; flex-direction: column; font-size: 13px; font-weight: 600; color: #e8edf4; line-height: 1.2; }
+.careops-page .co-app__tagline {
+  font-style: normal; font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.09em; text-transform: uppercase; color: #6c7d94; margin-top: 2px;
+}
+.careops-page .co-app__nav { display: flex; flex-direction: column; gap: 2px; }
+.careops-page .co-app__navitem {
+  display: flex; align-items: center; gap: 9px;
+  padding: 7px 8px; border-radius: 7px;
+  font-size: 12.5px; font-weight: 500; color: #93a1b5;
+}
+.careops-page .co-app__navitem--on { background: rgba(36, 137, 166, 0.22); color: #fff; }
+.careops-page .co-app__property {
+  margin-top: auto; display: flex; align-items: center; gap: 7px;
+  padding: 7px 8px; border-radius: 7px;
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 11.5px; color: #93a1b5;
+}
+.careops-page .co-app__property-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--co-success-solid); }
+
+.careops-page .co-app__main { flex: 1; min-width: 0; display: flex; flex-direction: column; background: var(--co-canvas); }
+.careops-page .co-app__top {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 11px 16px;
+  background: var(--co-surface);
+  border-bottom: 1px solid var(--co-line);
+}
+.careops-page .co-app__title { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--co-fg); }
+.careops-page .co-app__tools { display: inline-flex; align-items: center; gap: 9px; }
+.careops-page .co-app__search {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px; border-radius: var(--co-r-ctl);
+  border: 1px solid var(--co-line); background: var(--co-surface-2);
+  font-size: 12px; color: var(--co-fg-subtle);
+}
+.careops-page .co-app__icon { display: inline-flex; color: var(--co-fg-subtle); }
+.careops-page .co-app__me {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--co-brand-100); color: var(--co-brand-700);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 10.5px; font-weight: 600;
+}
+.careops-page .co-app__canvas { padding: 16px; flex: 1; }
+
+/* ── Grid helpers used inside frames ──────────────────────────────────── */
+.careops-page .co-grid { display: grid; gap: 12px; }
+.careops-page .co-grid--stats { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.careops-page .co-grid--rooms { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.careops-page .co-grid--board { grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; }
+.careops-page .co-grid--split { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }
+
+/* ── Container queries: the frame adapts to ITS width, not the viewport ── */
+@container (max-width: 900px) {
+  .careops-page .co-grid--stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .careops-page .co-grid--rooms { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .careops-page .co-grid--board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .careops-page .co-grid--split { grid-template-columns: minmax(0, 1fr); }
+}
+
+@container (max-width: 620px) {
+  .careops-page .co-app__rail { display: none; }
+  .careops-page .co-grid--stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .careops-page .co-app__search { display: none; }
+  .careops-page .co-app__canvas { padding: 12px; }
+  .careops-page .co-stat__value { font-size: 24px; }
+  .careops-page .co-task { grid-template-columns: 22px minmax(0, 1fr) auto; }
+  .careops-page .co-task__priority,
+  .careops-page .co-task__owner { display: none; }
+}
+
+@container (max-width: 460px) {
+  .careops-page .co-grid--board { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ── Progressive column disclosure ────────────────────────────────────── */
+@media (max-width: 1023px) { .careops-page .co-hide-below-lg { display: none; } }
+@media (max-width: 767px)  { .careops-page .co-hide-below-md { display: none; } }
+@media (max-width: 639px)  { .careops-page .co-hide-below-sm { display: none; } }
+
+/* ── Reduced motion ───────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .careops-page .co-room,
+  .careops-page .co-room__rail,
+  .careops-page .co-kcard,
+  .careops-page .co-btn,
+  .careops-page .co-progress__fill,
+  .careops-page .co-funnel__fill {
+    transition: none !important;
+    animation: none !important;
+  }
+  .careops-page.co-js .co-anim .co-funnel__fill,
+  .careops-page.co-js .co-progress__fill--anim { width: var(--co-pct, 0%); }
+}

@@ -66,6 +66,13 @@ body {
   }
 }
 
+/* Suspense gap between routes — neutral, full height, so no dark flash */
+.route-fallback {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #0a0a0a;
+}
+
 /* Ensure loading page doesn't block scrolling when hidden */
 .loading-page {
   position: fixed;

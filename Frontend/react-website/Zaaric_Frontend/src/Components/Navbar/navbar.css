@@ -87,6 +87,21 @@
   width: 100%;
 }
 
+/* Product route links sit slightly apart from the section anchors */
+.nav-link--route {
+  color: #00e6e6;
+  font-weight: 600;
+}
+
+.nav-link--route::after {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+.mobile-nav-link--route {
+  color: #00e6e6;
+  font-weight: 600;
+}
+
 /* Mobile Toggle */
 .navbar-toggle {
   background: transparent;

@@ -1,0 +1,136 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   ZAARIC CAREOPS — DESIGN TOKENS
+   ═══════════════════════════════════════════════════════════════════════
+
+   RULES FOR THIS PAGE (the rest of the site is global, unscoped CSS):
+
+   1. Tokens live on .careops-page, NEVER on :root. Seven files in this repo
+      already declare :root blocks and two of them actively collide.
+   2. Every class is `co-` prefixed. Every variable is `--co-` prefixed.
+   3. Page-level rules are written `.careops-page .co-x`, so SPECIFICITY
+      decides — never source order. CSS chunk order differs between a direct
+      load of /careops and an SPA navigation from /.
+   4. BANNED class names on this page (they exist globally elsewhere, and some
+      are live JS selectors): container, card, card-inner, title, dot, active,
+      visible, cta-btn, cta-button, apply, gradient-text, stat-value,
+      slide-in, nav-link.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.careops-page {
+  /* ── Brand ramp — single blue-teal accent ── */
+  --co-brand-50: #eff9fb;
+  --co-brand-100: #d6eff5;
+  --co-brand-200: #b0dfeb;
+  --co-brand-300: #7bc7da;
+  --co-brand-400: #45a8c2;
+  --co-brand-500: #2489a6;
+  --co-brand-600: #1a6e8a; /* primary — buttons, links */
+  --co-brand-700: #1a5a71;
+  --co-brand-800: #1b4b5e;
+  --co-brand-900: #1a3f4f;
+
+  /* ── Semantic surfaces — components reference these, never raw hex ── */
+  --co-canvas: #f6f8fb;
+  --co-surface: #ffffff;
+  --co-surface-2: #f9fafb;
+  --co-surface-3: #f1f4f9;
+  --co-line: #e6e9ef;
+  --co-line-strong: #d3d8e0;
+  --co-fg: #141d2e;
+  --co-fg-muted: #64708a;
+  --co-fg-subtle: #8b95a9;
+  --co-nav: #0e1720;
+
+  /* ── Status tones ── */
+  --co-success-bg: #e8f7ee;
+  --co-success-fg: #15703f;
+  --co-success-ring: #b6e3c9;
+  --co-success-solid: #1f9d55;
+
+  --co-warning-bg: #fdf3e3;
+  --co-warning-fg: #8a5a10;
+  --co-warning-ring: #f0d6a5;
+  --co-warning-solid: #d08700;
+
+  --co-danger-bg: #fdecec;
+  --co-danger-fg: #99231f;
+  --co-danger-ring: #f3c2c0;
+  --co-danger-solid: #d33b34;
+
+  --co-violet-bg: #f1edfd;
+  --co-violet-fg: #5535a8;
+  --co-violet-ring: #d5c9f5;
+  --co-violet-solid: #7a52d8;
+
+  --co-slate-bg: #eef1f6;
+  --co-slate-fg: #4a5568;
+  --co-slate-ring: #d3d8e0;
+  --co-slate-solid: #6b7a90;
+
+  --co-brand-bg: var(--co-brand-50);
+  --co-brand-fg: var(--co-brand-700);
+  --co-brand-ring: var(--co-brand-200);
+  --co-brand-solid: var(--co-brand-600);
+
+  --co-neutral-bg: var(--co-surface-3);
+  --co-neutral-fg: var(--co-fg-muted);
+  --co-neutral-ring: var(--co-line-strong);
+  --co-neutral-solid: var(--co-fg-subtle);
+
+  /* ── Shape ── */
+  --co-r-card: 14px;
+  --co-r-ctl: 8px;
+  --co-r-modal: 18px;
+
+  /* ── Elevation — three levels only ── */
+  --co-sh-card: 0 1px 2px rgba(20, 29, 46, 0.06), 0 1px 3px rgba(20, 29, 46, 0.04);
+  --co-sh-raised: 0 4px 12px rgba(20, 29, 46, 0.08), 0 2px 4px rgba(20, 29, 46, 0.05);
+  --co-sh-overlay: 0 16px 48px rgba(20, 29, 46, 0.16), 0 4px 12px rgba(20, 29, 46, 0.08);
+
+  /* ── Motion — one easing curve everywhere ── */
+  --co-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* ── Layout — 4px grid ── */
+  --co-u: 4px;
+  --co-max: 1480px;
+  --co-nav-h: 92px;
+  --co-pad: 16px;
+
+  /* ── Type ── */
+  --co-font: 'Inter Variable', 'Inter', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', sans-serif;
+
+  --co-ring: var(--co-brand-500);
+}
+
+/* ── Document canvas ──────────────────────────────────────────────────────
+   A page-level div cannot paint the overscroll area or the strip below a
+   short page. Applied to <html> for the route's lifetime by useThemeClass,
+   and removed on unmount so the dark site is untouched.                    */
+html.careops-theme,
+html.careops-theme body {
+  background-color: #f6f8fb;
+}
+
+html.careops-theme {
+  scroll-padding-top: 108px; /* fixed navbar clearance for anchor links */
+}
+
+/* Retint the shared navbar to the CareOps `nav` token.
+   `html.careops-theme .navbar` is (0,2,1) and beats navbar.css `.navbar`
+   at (0,1,0) — no !important, no change to the shared component. */
+html.careops-theme .navbar {
+  background: rgba(14, 23, 32, 0.88);
+  box-shadow: 0 1px 0 rgba(20, 29, 46, 0.08), 0 4px 20px rgba(14, 23, 32, 0.12);
+}
+
+html.careops-theme .navbar.scrolled {
+  background: rgba(14, 23, 32, 0.96);
+}
+
+/* App.css sets `html, body { overflow-y: auto !important }`, which defeats
+   any body-level scroll lock. html.co-locked is (0,1,1) and wins. */
+html.co-locked,
+html.co-locked body {
+  overflow: hidden !important;
+}
