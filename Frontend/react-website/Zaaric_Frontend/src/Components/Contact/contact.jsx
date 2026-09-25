@@ -111,7 +111,7 @@ const Contact = () => {
                 from_email: formData.email,
                 package: formData.packageType,
                 message: fullMessage,
-                to_email: "services@zaaric-ai.com"
+                to_email: "hamzakamran843@gmail.com"
             },
             import.meta.env.VITE_EMAILJS_PUBLIC_KEY
         )
@@ -128,7 +128,7 @@ const Contact = () => {
             })
             .catch(() => {
                 setIsSubmitting(false);
-                alert("Failed to send message. Please try again or contact us directly at services@zaaric-ai.com");
+                alert("Failed to send message. Please try again or contact us directly at hamzakamran843@gmail.com");
             });
     };
 
@@ -180,7 +180,7 @@ const Contact = () => {
                                 </div>
                                 <div className="info-content">
                                     <span className="info-label">Email Us</span>
-                                    <a href="mailto:services@zaaric-ai.com" className="info-value">services@zaaric-ai.com</a>
+                                    <a href="mailto:hamzakamran843@gmail.com" className="info-value">hamzakamran843@gmail.com</a>
                                 </div>
                             </div>
 
