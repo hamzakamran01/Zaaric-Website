@@ -1,5 +1,4 @@
 import React, { useCallback, useLayoutEffect, useRef } from 'react';
-import '@fontsource-variable/inter';
 
 import useThemeClass from '../../hooks/useThemeClass';
 import useReveal from '../../hooks/useReveal';

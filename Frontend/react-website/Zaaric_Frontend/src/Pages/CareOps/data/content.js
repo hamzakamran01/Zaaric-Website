@@ -62,8 +62,8 @@ export const LEAKS = {
       body:
         'An inquiry with no owner and no due date is an inquiry nobody is accountable for. It doesn’t get lost dramatically — it just never gets called back.',
       stat:
-        'Research outside hospitality gives a sense of the scale: an audit of 2,241 US companies found the average business took 42 hours to respond to an inbound web inquiry, and 23% never responded at all. Those that responded within an hour were about seven times more likely to qualify the lead.',
-      source: 'Harvard Business Review, 2011 — general business research, not lodging-specific.',
+        'An audit of 2,241 companies found the average business took 42 hours to respond to an inquiry, and 23% never responded at all.',
+      source: 'Harvard Business Review, 2011',
     },
     {
       icon: 'BedDouble',
