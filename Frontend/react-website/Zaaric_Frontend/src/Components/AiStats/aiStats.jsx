@@ -18,12 +18,15 @@ const GlobalCommerce = () => {
   ]);
 
   useEffect(() => {
+    const currentGlobeRef = globeRef.current;
+    if (!currentGlobeRef) return;
+
     // THREE.js Globe setup with original impactful design
     const scene = new THREE.Scene();
 
     // Ensure minimum dimensions for mobile
-    const containerWidth = Math.max(globeRef.current.clientWidth || 300, 200);
-    const containerHeight = Math.max(globeRef.current.clientHeight || 300, 200);
+    const containerWidth = Math.max(currentGlobeRef.clientWidth || 300, 200);
+    const containerHeight = Math.max(currentGlobeRef.clientHeight || 300, 200);
 
     const camera = new THREE.PerspectiveCamera(
       60,
@@ -37,7 +40,7 @@ const GlobalCommerce = () => {
     renderer.setSize(containerWidth, containerHeight);
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
-    globeRef.current.appendChild(renderer.domElement);
+    currentGlobeRef.appendChild(renderer.domElement);
 
     // Adjust mesh complexity based on screen size
     const isMobile = window.innerWidth <= 768;
@@ -69,20 +72,19 @@ const GlobalCommerce = () => {
     pointLight2.position.set(-5, -3, -5);
     scene.add(pointLight2);
 
-    // Globe dots have been removed as per user request
-    // Original code created scattered points around the sphere
-    // Keeping only the wireframe globe for a cleaner look
+    let animationFrameId;
 
     const animate = () => {
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
       globe.rotation.y += 0.003; // Slightly slower for elegant feel
       renderer.render(scene, camera);
     };
     animate();
 
     const handleResize = () => {
-      const containerWidth = Math.max(globeRef.current.clientWidth || 300, 200);
-      const containerHeight = Math.max(globeRef.current.clientHeight || 300, 200);
+      if (!currentGlobeRef) return;
+      const containerWidth = Math.max(currentGlobeRef.clientWidth || 300, 200);
+      const containerHeight = Math.max(currentGlobeRef.clientHeight || 300, 200);
       camera.aspect = containerWidth / containerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(containerWidth, containerHeight);
@@ -90,7 +92,13 @@ const GlobalCommerce = () => {
     window.addEventListener('resize', handleResize);
 
     return () => {
-      globeRef.current.removeChild(renderer.domElement);
+      cancelAnimationFrame(animationFrameId);
+      if (currentGlobeRef && currentGlobeRef.contains(renderer.domElement)) {
+        currentGlobeRef.removeChild(renderer.domElement);
+      }
+      geometry.dispose();
+      material.dispose();
+      renderer.dispose();
       window.removeEventListener('resize', handleResize);
     };
   }, []);
